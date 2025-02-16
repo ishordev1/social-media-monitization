@@ -1,7 +1,7 @@
 package com.backend.service.imp;
 
 import java.util.List;
-
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -18,19 +18,21 @@ import com.backend.service.UserService;
 public class UserServiceImp implements UserService {
 	@Autowired
 	private ModelMapper modelMapper;
+	@Autowired
 	private UserRepository userRepository;
 
 	@Override
 	public UserDto createUser(UserDto userDto) {
+		String userId=UUID.randomUUID().toString();
+		userDto.setUserId(userId);
 		User user = this.modelMapper.map(userDto, User.class);
 		User u = this.userRepository.save(user);
 		return this.modelMapper.map(u, UserDto.class);
 	}
 
 	@Override
-
 	public UserDto updateUser(String userId, UserDto userDto) {
-		User user = this.userRepository.findById(userId)
+		this.userRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("user not found in this email:" + userId));
 		User u = this.modelMapper.map(userDto, User.class);
 		User user1 = this.userRepository.save(u);
@@ -39,6 +41,7 @@ public class UserServiceImp implements UserService {
 
 	@Override
 	public Boolean deleteUser(String userId) {
+		
 		User user = this.userRepository.findById(userId).orElseThrow(()->new ResourceNotFoundException("user not found in this email:" + userId));
 		this.userRepository.delete(user);
 		return true;
