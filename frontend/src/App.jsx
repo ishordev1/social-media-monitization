@@ -6,7 +6,12 @@ import { Route, Router, Routes } from 'react-router-dom'
 import Signin from './pages/Signin'
 import Signup from './pages/Signup'
 import Home from './pages/Home'
-import UserHome from './pages/User/Home'
+import UserBase from './pages/User/UserBase'
+import UserHome from './pages/User/UserHome'
+import AdminBase from './pages/Admin/AdminBase'
+import AdminHome from './pages/Admin/AdminHome'
+
+
 function App() {
 
 
@@ -14,10 +19,29 @@ function App() {
     <>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home/>}/>
+        <Route path="/" element={<Home />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/signin' element={<Signin />} />
-        <Route path='/user/home' element={<UserHome/>}/>
+
+
+        {/* user route */}
+        <Route path='/user' element={<UserBase />}>
+          <Route path='home' element={<UserHome />}>
+            {/* here dashboard */}
+          </Route>
+        </Route>
+        {/* user route end */}
+
+        {/* admin route start */}
+        <Route path='/admin' element={<AdminBase />}>
+          <Route path='home' element={<AdminHome />} >
+            {/* here dashboard */}
+
+          </Route>
+        </Route>
+
+        {/* admin route end */}
+
       </Routes>
       <Footer />
     </>
