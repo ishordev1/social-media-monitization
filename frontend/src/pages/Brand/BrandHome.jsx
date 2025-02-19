@@ -1,32 +1,31 @@
 import React from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
 
-const UserHome = () => {
+const BrandHome = () => {
   return (
-    <>
-      <div className="d-flex">
+    <div className="d-flex">
         {/* navbar start  */}
         <nav className="navbar-dark navbar-expand-lg bg-color left-side ">
           <div className="" id="navbarSupportedContent">
             <ul className="navbar-nav d-block  mb-lg-0 ">
               <li className="nav-item">
-                <NavLink to='/user/home/dashboard' className="nav-link" >Dashboard</NavLink>
+                <NavLink to='/brand/home/dashboard' className="nav-link" >Dashboard</NavLink>
               </li>
               <li className="nav-item">
-                <NavLink to='/user/home/dashboard' className="nav-link" >Url Submittion</NavLink>
+                <NavLink to='/brand/home/dashboard' className="nav-link" >Load money</NavLink>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">Sponsor</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">Insta Profile</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">Account</a>
+                <a className="nav-link" href="#">Campaing</a>
               </li>
 
               <li className="nav-item">
-                <a className="nav-link " >setting</a>
+                <a className="nav-link " >Analysic</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link " >Acount</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link " >Setting</a>
               </li>
             </ul>
 
@@ -40,11 +39,7 @@ const UserHome = () => {
          <Outlet/>
         </div>
       </div>
-
-
-
-    </>
   )
 }
 
-export default UserHome
+export default BrandHome

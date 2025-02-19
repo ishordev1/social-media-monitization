@@ -1,3 +1,13 @@
 .bg-color{
   background-color: #2831d4;
 }
+
+.left-side{
+width: 20%;
+text-align: center;
+height: fit-content;
+}
+.right-side{
+width: 80%;
+background-color: rgb(217, 210, 224);
+}

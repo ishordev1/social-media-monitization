@@ -4,21 +4,33 @@ import { NavLink } from 'react-router-dom'
 const AdminHome = () => {
     return (
         <>
-            <div className="d-flex">
+            <div className="d-flex ">
                 {/* navbar start  */}
-                <nav className="navbar-dark navbar-expand-lg bg-primary  m-0 p-0">
+                <nav className="navbar-dark navbar-expand-lg bg-color  left-side">
                     <div className="" id="navbarSupportedContent">
                         <ul className="navbar-nav d-block  mb-lg-0 ">
                             <li className="nav-item">
-                                <NavLink to='/user/home' className="nav-link" aria-current="page" >Home</NavLink>
+                                <NavLink to='/user/home' className="nav-link"  >Dashboard</NavLink>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Link</a>
+                                <NavLink to='/user/home' className="nav-link"  >User</NavLink>
                             </li>
 
                             <li className="nav-item">
-                                <a className="nav-link " aria-disabled="true">Disabled</a>
+                                <NavLink to='/user/home' className="nav-link"  >Brand</NavLink>
                             </li>
+                            <li className="nav-item">
+                                <NavLink to='/user/home' className="nav-link"  >Account Approve</NavLink>
+                            </li>
+                            <li className="nav-item">
+                                <NavLink to='/user/home' className="nav-link"  >Account</NavLink>
+                            </li>
+                            <li className="nav-item">
+                                <NavLink to='/user/home' className="nav-link"  >Setting</NavLink>
+                            </li>
+            
+
+                         
                         </ul>
 
                     </div>
@@ -27,7 +39,7 @@ const AdminHome = () => {
 
                 {/* navbar end */}
 
-                <div className="container">
+                <div className="container right-side">
                     <h1>hello</h1>
                 </div>
             </div>

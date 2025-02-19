@@ -10,6 +10,9 @@ import UserBase from './pages/User/UserBase'
 import UserHome from './pages/User/UserHome'
 import AdminBase from './pages/Admin/AdminBase'
 import AdminHome from './pages/Admin/AdminHome'
+import BrandBase from './pages/Brand/BrandBase'
+import BrandHome from './pages/Brand/BrandHome'
+import UserDashbard from './pages/User/UserDashbard'
 
 
 function App() {
@@ -28,6 +31,7 @@ function App() {
         <Route path='/user' element={<UserBase />}>
           <Route path='home' element={<UserHome />}>
             {/* here dashboard */}
+            <Route path="dashboard" element={<UserDashbard/>}/>
           </Route>
         </Route>
         {/* user route end */}
@@ -41,6 +45,12 @@ function App() {
         </Route>
 
         {/* admin route end */}
+
+        {/* brand route start */}
+        <Route path='/brand' element={<BrandBase/>}>
+        <Route path='home' element={<BrandHome/>}/>
+        </Route>
+        {/* brand route end */}
 
       </Routes>
       <Footer />
