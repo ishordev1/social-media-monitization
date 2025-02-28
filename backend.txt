@@ -1,2 +1,4 @@
-Role- Admin, user,brand
-User-> approval,
+Role: Admin, user, brand
+User-> send approval, send cashbash request
+Brand-> load money, run campaign
+Admin -> accept approval, accept cashback
