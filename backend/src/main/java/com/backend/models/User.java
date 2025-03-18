@@ -6,6 +6,8 @@ import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 
 import jakarta.persistence.Id;
@@ -22,15 +24,17 @@ import lombok.Setter;
 @NoArgsConstructor
 public class User {
 	@Id
-	
 	private String userId;
 	private String name;
 	private String email;
 	private String password;
 	private String imgName;
 	private String instaUsername;
+	@Enumerated(EnumType.STRING)
 	private UserStatus status;
+	@Enumerated(EnumType.STRING)
     private Role role;
+    private Boolean active;
 	
 }
 

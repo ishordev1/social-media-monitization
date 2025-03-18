@@ -27,9 +27,9 @@ public class UserDto {
 	private String password;
 	private String imgName;
 	private String instaUsername;
-	 @Enumerated(EnumType.STRING)
+	
 	private UserStatus status;
-	 @Enumerated(EnumType.STRING)
-    private Role role;
-   
+	private Role role;
+	private Boolean active;
+
 }

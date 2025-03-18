@@ -1,4 +1,4 @@
-package com.backend.service.imp;
+package com.backend.service.impl;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.backend.service.FileService;
 
 @Service
-public class FileServiceImp implements FileService {
+public class FileServiceImpl implements FileService {
 
 	@Override
 	public String fileUpload(MultipartFile file, String path) throws IOException {
