@@ -2,6 +2,11 @@ package com.backend.dto;
 
 import java.util.Date;
 import java.util.List;
+
+import com.backend.models.CAMPAIGNSTATUS;
+import com.backend.models.InstaPost;
+import com.backend.models.User;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +22,7 @@ public class CampaignDto {
     private Date createdDate;
     private Double distributeAmount;
     private Double remainingAmount;
-    private String userId;
-    private List<CampaignParticipationDto> participants;
+    private CAMPAIGNSTATUS status;
+    private User user;
+    private List<InstaPost> posts; 
 }

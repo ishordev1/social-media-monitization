@@ -25,14 +25,14 @@ public class UserController {
 	}
 
 	// Update User by Email
-	@PutMapping("/update/{email}")
+	@PutMapping("/{email}")
 	public ResponseEntity<UserDto> updateUser(@PathVariable String email, @RequestBody UserDto userDto) {
 		UserDto updatedUser = this.userService.updateUser(email, userDto);
 		return new ResponseEntity<>(updatedUser, HttpStatus.OK);
 	}
 
 	// Delete User by User ID
-	@DeleteMapping("/delete/{userId}")
+	@DeleteMapping("/{userId}")
 	public ResponseEntity<String> deleteUser(@PathVariable String userId) {
 		this.userService.deleteUser(userId);
 		return new ResponseEntity<>("User deleted successfully", HttpStatus.OK);

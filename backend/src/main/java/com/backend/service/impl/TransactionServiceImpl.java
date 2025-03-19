@@ -37,11 +37,11 @@ public class TransactionServiceImpl implements TransactionService {
     private ModelMapper modelMapper; 
     
     @Override
-    public TransactionDto addMoney(TransactionDto loadMoneyDto, String userId) {
+    public TransactionDto addMoney(TransactionDto transactionDto, String userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with ID: " + userId));
 
-        Transaction loadMoney = modelMapper.map(loadMoneyDto, Transaction.class);
+        Transaction loadMoney = modelMapper.map(transactionDto, Transaction.class);
         loadMoney.setTransactionId(UUID.randomUUID().toString());
         loadMoney.setUser(user);
         loadMoney.setDate(new Date());
@@ -82,13 +82,13 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public void deleteTransaction(String loadMoneyId) {
-        Transaction loadMoney = this.transactionRepository.findById(loadMoneyId) .orElseThrow(() -> new ResourceNotFoundException("Transaction not found with ID: " + loadMoneyId));
+    public void deleteTransaction(String transactionId) {
+        Transaction loadMoney = this.transactionRepository.findById(transactionId) .orElseThrow(() -> new ResourceNotFoundException("Transaction not found with ID: " + transactionId));
         transactionRepository.delete(loadMoney);
     }
     
     @Override
-    public TransactionDto debitMoney(TransactionDto loadMoneyDto, String userId) {
+    public TransactionDto debitMoney(TransactionDto transactionDto, String userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with ID: " + userId));
 
@@ -97,23 +97,23 @@ public class TransactionServiceImpl implements TransactionService {
                 .orElseThrow(() -> new ResourceNotFoundException("Balance information not found for user ID: " + userId));
 
         // Check if the user has enough balance
-        if (balanceInfo.getTotalBalance() < loadMoneyDto.getAmount()) {
+        if (balanceInfo.getTotalBalance() < transactionDto.getAmount()) {
             throw new IllegalArgumentException("Insufficient balance.");
         }
 
         // Deduct money from the user's balance
-        balanceInfo.setTotalBalance(balanceInfo.getTotalBalance() - loadMoneyDto.getAmount());
-        balanceInfo.setSpendBalance(balanceInfo.getSpendBalance() + loadMoneyDto.getAmount());
+        balanceInfo.setTotalBalance(balanceInfo.getTotalBalance() - transactionDto.getAmount());
+        balanceInfo.setSpendBalance(balanceInfo.getSpendBalance() + transactionDto.getAmount());
 
         // Save the updated balance
         balanceInfoRepository.save(balanceInfo);
 
         // Save the debit transaction
-        Transaction loadMoney = modelMapper.map(loadMoneyDto, Transaction.class);
+        Transaction loadMoney = modelMapper.map(transactionDto, Transaction.class);
         loadMoney.setTransactionId(UUID.randomUUID().toString());
         loadMoney.setUser(user);
         loadMoney.setDate(new Date());
-        loadMoney.setAmount(-loadMoneyDto.getAmount()); // Storing as negative value for debit
+        loadMoney.setAmount(-transactionDto.getAmount()); // Storing as negative value for debit
         loadMoney.setTransactionType(TRANSACTIONTYPE.DEBIT);
         Transaction savedTransaction = transactionRepository.save(loadMoney);
 

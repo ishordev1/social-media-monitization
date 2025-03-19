@@ -23,6 +23,7 @@ private Double amount;
 private String bank;
 private String paymentMode;
 private Date date;
+
 @ManyToOne
 @JoinColumn(name = "user_Id")
 private User user;

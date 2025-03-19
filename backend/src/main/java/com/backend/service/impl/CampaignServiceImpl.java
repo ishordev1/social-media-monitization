@@ -12,10 +12,13 @@ import com.backend.dto.BalanceInfoDto;
 import com.backend.dto.CampaignDto;
 import com.backend.dto.TransactionDto;
 import com.backend.exception.ResourceNotFoundException;
+import com.backend.models.CAMPAIGNSTATUS;
 import com.backend.models.Campaign;
+import com.backend.models.InstaPost;
 import com.backend.models.Transaction;
 import com.backend.models.User;
 import com.backend.repository.CampaignRepository;
+import com.backend.repository.InstaPostRepository;
 import com.backend.repository.UserRepository;
 import com.backend.service.BalanceInfoService;
 import com.backend.service.CampaignService;
@@ -34,6 +37,7 @@ public class CampaignServiceImpl implements CampaignService {
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
     private final TransactionService transactionService;
+    private final InstaPostRepository instaPostRepository;
 
     @Override
     public CampaignDto createCampaign(String userId, CampaignDto campaignDto) {
@@ -44,10 +48,10 @@ if(balanceInfo.getTotalBalance()<campaignDto.getAmount()) {
 	throw new ResourceNotFoundException("Insuffient balance, please load balance...");
 }
         Campaign campaign = modelMapper.map(campaignDto, Campaign.class);
-        campaign.setCampaignnId(java.util.UUID.randomUUID().toString()); // Generate unique ID
+        campaign.setCampaignId(java.util.UUID.randomUUID().toString()); // Generate unique ID
         campaign.setCreatedDate(new Date());
         campaign.setUser(user);
-
+        campaign.setStatus(CAMPAIGNSTATUS.RUNNING);
         Campaign savedCampaign = campaignRepository.save(campaign);
         TransactionDto transactionDto=new TransactionDto();
         transactionDto.setAmount(campaign.getAmount());
@@ -82,9 +86,21 @@ if(balanceInfo.getTotalBalance()<campaignDto.getAmount()) {
             throw new ResourceNotFoundException("User is not authorized to delete this campaign");
         }
 
+        // Check agar InstaPosts hai to hi NULL set kare
+        if (campaign.getPosts() != null && !campaign.getPosts().isEmpty()) {
+            for (InstaPost post : campaign.getPosts()) {
+                post.setCampaign(null);
+            }
+            instaPostRepository.saveAll(campaign.getPosts()); // Update InstaPost
+        }
+
+        // Ab campaign delete kar sakte ho
         campaignRepository.delete(campaign);
+
         return true;
     }
+
+
 
     @Override
     public List<CampaignDto> getAllCampaigns() {
@@ -101,5 +117,14 @@ if(balanceInfo.getTotalBalance()<campaignDto.getAmount()) {
 
         return modelMapper.map(campaign, CampaignDto.class);
     }
+
+	@Override
+	public List<CampaignDto> getCampaignByUserId(String userId) {
+		List<Campaign> campaignList = this.campaignRepository.findByUser_UserId(userId);
+		List<CampaignDto> campaignDto = campaignList.stream().map(campaign->this.modelMapper.map(campaign, CampaignDto.class)).collect(Collectors.toList());
+		return campaignDto;
+	}
+    
+   
     
 }

@@ -10,4 +10,6 @@ public interface CampaignService {
     Boolean deleteCampaign(String userId,String campaignId);
     List<CampaignDto> getAllCampaigns();
     CampaignDto getCampaignById(String campaignId);
+    List<CampaignDto> getCampaignByUserId(String userId);
+
 }

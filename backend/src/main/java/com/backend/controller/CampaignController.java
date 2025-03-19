@@ -8,6 +8,7 @@ import com.backend.service.CampaignService;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -60,4 +61,12 @@ public class CampaignController {
         CampaignDto campaign = campaignService.getCampaignById(campaignId);
         return ResponseEntity.ok(campaign);
     }
+    
+    // Get Campaign by ID
+    @GetMapping("/{userId}")
+    public ResponseEntity<List<CampaignDto>> getCampaignByUserId(@PathVariable String userId) {
+        List<CampaignDto> campaignList = campaignService.getCampaignByUserId(userId);
+        return new ResponseEntity<List<CampaignDto>>(campaignList,HttpStatus.OK);
+    }
+    
 }
