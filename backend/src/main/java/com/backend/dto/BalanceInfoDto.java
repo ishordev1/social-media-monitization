@@ -13,5 +13,5 @@ public class BalanceInfoDto {
     private Double totalBalance;
     private Double spendBalance;
     private UserDto user; 
-    private List<LoadMoneyDto> loadMoneyTransactions;
+    private List<TransactionDto> loadMoneyTransactions;
 }

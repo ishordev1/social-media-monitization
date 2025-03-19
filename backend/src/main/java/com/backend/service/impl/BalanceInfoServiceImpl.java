@@ -6,10 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.backend.dto.BalanceInfoDto;
+import com.backend.dto.TransactionDto;
 import com.backend.exception.ResourceNotFoundException;
 import com.backend.models.BalanceInfo;
+import com.backend.models.Transaction;
 import com.backend.repository.BalanceInfoRepository;
 import com.backend.service.BalanceInfoService;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.modelmapper.ModelMapper;
 
 @Service
@@ -54,4 +60,7 @@ public class BalanceInfoServiceImpl implements BalanceInfoService {
 
         balanceInfoRepository.delete(balanceInfo);
     }
+
+
+    
 }

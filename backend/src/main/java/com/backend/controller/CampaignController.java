@@ -7,6 +7,7 @@ import com.backend.service.CampaignService;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,11 +15,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/campaigns")
+//requiredArgsConstructor is use to generate @Autowire annotation for final field attribute, so not need to add @dautowire annotation
 @RequiredArgsConstructor
 public class CampaignController {
-
+   
     private final CampaignService campaignService;
-
+    
+    
+    
     // Create Campaign
     @PostMapping("/{userId}")
     public ResponseEntity<CampaignDto> createCampaign(@PathVariable String userId, @RequestBody CampaignDto campaignDto) {

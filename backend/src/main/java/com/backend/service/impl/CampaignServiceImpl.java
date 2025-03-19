@@ -8,12 +8,18 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.backend.dto.BalanceInfoDto;
 import com.backend.dto.CampaignDto;
+import com.backend.dto.TransactionDto;
+import com.backend.exception.ResourceNotFoundException;
 import com.backend.models.Campaign;
+import com.backend.models.Transaction;
 import com.backend.models.User;
 import com.backend.repository.CampaignRepository;
 import com.backend.repository.UserRepository;
+import com.backend.service.BalanceInfoService;
 import com.backend.service.CampaignService;
+import com.backend.service.TransactionService;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -24,27 +30,38 @@ import org.modelmapper.ModelMapper;
 public class CampaignServiceImpl implements CampaignService {
 
     private final CampaignRepository campaignRepository;
+    private final BalanceInfoService balanceInfoService;
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
+    private final TransactionService transactionService;
 
     @Override
     public CampaignDto createCampaign(String userId, CampaignDto campaignDto) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
-
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
+BalanceInfoDto balanceInfo = this.balanceInfoService.getBalanceByUserId(userId);
+if(balanceInfo.getTotalBalance()<campaignDto.getAmount()) {
+	throw new ResourceNotFoundException("Insuffient balance, please load balance...");
+}
         Campaign campaign = modelMapper.map(campaignDto, Campaign.class);
         campaign.setCampaignnId(java.util.UUID.randomUUID().toString()); // Generate unique ID
         campaign.setCreatedDate(new Date());
         campaign.setUser(user);
 
         Campaign savedCampaign = campaignRepository.save(campaign);
+        TransactionDto transactionDto=new TransactionDto();
+        transactionDto.setAmount(campaign.getAmount());
+        transactionDto.setBank("SMM");
+        transactionDto.setPaymentMode("UPI");
+        
+        this.transactionService.debitMoney(transactionDto, userId);
         return modelMapper.map(savedCampaign, CampaignDto.class);
     }
 
     @Override
     public CampaignDto updateCampaign(String campaignId, CampaignDto campaignDto) {
         Campaign campaign = campaignRepository.findById(campaignId)
-                .orElseThrow(() -> new RuntimeException("Campaign not found with id: " + campaignId));
+                .orElseThrow(() -> new ResourceNotFoundException("Campaign not found with id: " + campaignId));
 
         campaign.setTitle(campaignDto.getTitle());
         campaign.setAmount(campaignDto.getAmount());
@@ -59,10 +76,10 @@ public class CampaignServiceImpl implements CampaignService {
     @Override
     public Boolean deleteCampaign(String userId, String campaignId) {
         Campaign campaign = campaignRepository.findById(campaignId)
-                .orElseThrow(() -> new RuntimeException("Campaign not found with id: " + campaignId));
+                .orElseThrow(() -> new ResourceNotFoundException("Campaign not found with id: " + campaignId));
 
         if (!campaign.getUser().getUserId().equals(userId)) {
-            throw new RuntimeException("User is not authorized to delete this campaign");
+            throw new ResourceNotFoundException("User is not authorized to delete this campaign");
         }
 
         campaignRepository.delete(campaign);
@@ -80,7 +97,7 @@ public class CampaignServiceImpl implements CampaignService {
     @Override
     public CampaignDto getCampaignById(String campaignId) {
         Campaign campaign = campaignRepository.findById(campaignId)
-                .orElseThrow(() -> new RuntimeException("Campaign not found with id: " + campaignId));
+                .orElseThrow(() -> new ResourceNotFoundException("Campaign not found with id: " + campaignId));
 
         return modelMapper.map(campaign, CampaignDto.class);
     }

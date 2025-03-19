@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class LoadMoneyDto {
-    private String loadMoneyId;
+public class TransactionDto {
+    private String TransactionId;
     private Date date;
     private Double amount;
     private String bank;

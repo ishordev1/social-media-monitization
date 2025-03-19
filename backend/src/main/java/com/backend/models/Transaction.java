@@ -16,9 +16,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class LoadMoney {
+public class Transaction {
 	@Id
-private String loadMoneyId;
+private String TransactionId;
 private Double amount;
 private String bank;
 private String paymentMode;
@@ -27,9 +27,6 @@ private Date date;
 @JoinColumn(name = "user_Id")
 private User user;
 
-@ManyToOne
-@JoinColumn(name = "balance_info_id")
-private BalanceInfo balanceInfo;
 @Enumerated(EnumType.STRING)
 private TRANSACTIONTYPE transactionType; 
 }

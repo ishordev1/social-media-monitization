@@ -25,6 +25,6 @@ private Double spendBalance=0.0;
 @JoinColumn(name = "user_Id")
 private User user;
 
-@OneToMany(mappedBy = "balanceInfo", cascade = CascadeType.ALL, orphanRemoval = true)
-private List<LoadMoney> loadMoneyTransactions;
+@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+private List<Transaction> loadMoneyTransactions;
 }
