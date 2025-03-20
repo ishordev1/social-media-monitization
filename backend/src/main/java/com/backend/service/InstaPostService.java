@@ -3,6 +3,7 @@ package com.backend.service;
 import java.util.List;
 
 import com.backend.dto.InstaPostDto;
+import com.backend.models.INSTAPOSTSTATUS;
 
 public interface InstaPostService {
 InstaPostDto createInstaPost(String userId,String campaignId,InstaPostDto instaPostDto);
@@ -12,6 +13,6 @@ List<InstaPostDto> getInstaPostByUserId(String userId);
 List<InstaPostDto> getInstaPostByCampaignId(String campaignId);
 List<InstaPostDto> getAllInstaPost();
 
-InstaPostDto updateInstaPostByAdmin(String instaPostId,InstaPostDto instaPostDto);
+InstaPostDto updateInstaPostByAdmin(String adminUserId,String instaPostId,INSTAPOSTSTATUS status);
 
 }

@@ -22,6 +22,7 @@ public class InstaPost {
 	private Date date;
 	private Double cashback;
 	private String description;
+	private Boolean adminVisit=false;
 	private INSTAPOSTSTATUS STATUS;
 	@ManyToOne
 	@JoinColumn(name = "user_Id")

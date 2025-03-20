@@ -23,6 +23,7 @@ public class InstaPostDto {
     private Double cashback;
     private INSTAPOSTSTATUS STATUS;
     private String description;
+    private Boolean adminVisit;
     
     private User user;  
     private Campaign campaign; 
