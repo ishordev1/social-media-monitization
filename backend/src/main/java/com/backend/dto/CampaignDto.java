@@ -25,4 +25,5 @@ public class CampaignDto {
     private CAMPAIGNSTATUS status;
     private User user;
     private List<InstaPost> posts; 
+    private String campaignImgName;
 }

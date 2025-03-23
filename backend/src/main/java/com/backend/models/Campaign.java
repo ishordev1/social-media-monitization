@@ -13,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,8 +24,11 @@ import lombok.NoArgsConstructor;
 public class Campaign {
 	@Id
 private String campaignId;
+	@NotBlank(message = "Campaign title is required!........")
 private String title;
+	@NotBlank(message = "Campaign amount is required!........")
 private Double amount;
+private String campaignImgName;
 private String description;
 private Date createdDate;
 private Double distributeAmount;

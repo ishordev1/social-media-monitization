@@ -13,6 +13,6 @@ List<InstaPostDto> getInstaPostByUserId(String userId);
 List<InstaPostDto> getInstaPostByCampaignId(String campaignId);
 List<InstaPostDto> getAllInstaPost();
 
-InstaPostDto updateInstaPostByAdmin(String adminUserId,String instaPostId,INSTAPOSTSTATUS status);
+InstaPostDto acceptInstaPostByAdmin(String adminUserId,String instaPostId,INSTAPOSTSTATUS status);
 
 }

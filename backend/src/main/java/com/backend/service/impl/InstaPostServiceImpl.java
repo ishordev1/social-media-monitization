@@ -46,6 +46,8 @@ public class InstaPostServiceImpl implements InstaPostService {
 
 		CampaignDto campaignDto = this.campaignService.getCampaignById(campaignId);
 		Campaign campaign = this.modelMapper.map(campaignDto, Campaign.class);
+	
+		
 		InstaPost instaPost = modelMapper.map(instaPostDto, InstaPost.class);
 		// base on userInstaScore amount will give check
 		if (campaign.getRemainingAmount() < 0) {
@@ -71,6 +73,7 @@ public class InstaPostServiceImpl implements InstaPostService {
 		if (remain < 0) {
 			campaignDto.setStatus(CAMPAIGNSTATUS.CLOSE);
 		}
+		
 		this.campaignService.updateCampaign(campaignId, campaignDto);
 
 
@@ -127,7 +130,7 @@ public class InstaPostServiceImpl implements InstaPostService {
 	}
 
 	@Override
-	public InstaPostDto updateInstaPostByAdmin(String adminUserId,String instaPostId, INSTAPOSTSTATUS status) {
+	public InstaPostDto acceptInstaPostByAdmin(String adminUserId,String instaPostId, INSTAPOSTSTATUS status) {
 		InstaPost instaPost = instaPostRepository.findById(instaPostId)
 				.orElseThrow(() -> new ResourceNotFoundException("InstaPost not found with id: " + instaPostId));
 		User admin=this.userRepository.findById(adminUserId).orElseThrow(()-> new ResourceNotFoundException("Admin not found in this id:"+adminUserId));
@@ -144,12 +147,13 @@ public class InstaPostServiceImpl implements InstaPostService {
 			campaignDto.setDistributeAmount(campaignDto.getDistributeAmount()-instaPost.getCashback());
 			this.campaignService.updateCampaign(campaignDto.getCampaignId(), campaignDto); 
 		}
-		else if(status.toString().equalsIgnoreCase("REJECTED")) {
+		else if(status.toString().equalsIgnoreCase("ACCEPTED")) {
 			// after approval also transfer balance in user Account
 			TransactionDto creditTransactionDetails = new TransactionDto();
 			creditTransactionDetails.setAmount(instaPost.getCashback());
 			creditTransactionDetails.setBank("SMM official");
 			creditTransactionDetails.setPaymentMode("online");
+			
 			this.transactionService.addMoney(creditTransactionDetails, instaPost.getUser().getUserId());
 		
 			// company account money reduce
@@ -157,6 +161,7 @@ public class InstaPostServiceImpl implements InstaPostService {
 			debitTransactionDetails.setAmount(instaPost.getCashback());
 			debitTransactionDetails.setBank("SMM official");
 			debitTransactionDetails.setPaymentMode("online");
+			this.transactionService.debitMoney(debitTransactionDetails, adminUserId);
 		}
 		
 		

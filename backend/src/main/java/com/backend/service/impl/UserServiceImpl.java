@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 
 import com.backend.dto.UserDto;
 import com.backend.exception.ResourceNotFoundException;
+import com.backend.models.Role;
 import com.backend.models.User;
+import com.backend.models.UserStatus;
 import com.backend.repository.UserRepository;
 import com.backend.service.UserService;
 
@@ -28,6 +30,11 @@ public class UserServiceImpl implements UserService {
     public UserDto createUser(UserDto userDto) {
         String userId = UUID.randomUUID().toString();
         userDto.setUserId(userId);
+        if(userDto.getRole()==Role.CUSTOMER) {
+        	userDto.setStatus(UserStatus.PENDING);
+        }else {
+        	userDto.setStatus(UserStatus.VERIFY);
+        }
         
         User user = this.modelMapper.map(userDto, User.class);
         User savedUser = this.userRepository.save(user);

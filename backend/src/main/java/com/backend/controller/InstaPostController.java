@@ -12,13 +12,13 @@ import com.backend.service.InstaPostService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/instaposts")
+@RequestMapping("/api/instapost")
 @RequiredArgsConstructor
 public class InstaPostController {
 
     private final InstaPostService instaPostService;
 
-    @PostMapping("/campaign/participate/{userId}/{campaignId}")
+    @PostMapping("/campaign/{campaignId}/participate/user/{userId}")
     public ResponseEntity<InstaPostDto> createInstaPost(
             @PathVariable String userId,
             @PathVariable String campaignId,
@@ -61,11 +61,5 @@ public class InstaPostController {
         return ResponseEntity.ok(instaPosts);
     }
 
-    @PutMapping("/admin/{instaPostId}")
-    public ResponseEntity<InstaPostDto> updateInstaPostByAdmin(
-            @PathVariable String instaPostId,
-            @RequestBody InstaPostDto instaPostDto) {
-        InstaPostDto updatedPost = instaPostService.updateInstaPostByAdmin(instaPostId, instaPostDto);
-        return ResponseEntity.ok(updatedPost);
-    }
+ 
 }

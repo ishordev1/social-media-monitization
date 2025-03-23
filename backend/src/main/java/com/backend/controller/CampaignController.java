@@ -4,12 +4,13 @@ import com.backend.dto.ApiResponse;
 import com.backend.dto.CampaignDto;
 import com.backend.service.CampaignService;
 
-
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class CampaignController {
     
     // Create Campaign
     @PostMapping("/{userId}")
-    public ResponseEntity<CampaignDto> createCampaign(@PathVariable String userId, @RequestBody CampaignDto campaignDto) {
+    public ResponseEntity<CampaignDto> createCampaign(@Valid @RequestBody CampaignDto campaignDto, @PathVariable String userId) {
         CampaignDto createdCampaign = campaignService.createCampaign(userId, campaignDto);
         return ResponseEntity.ok(createdCampaign);
     }

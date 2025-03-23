@@ -31,5 +31,6 @@ public class UserDto {
 	private UserStatus status;
 	private Role role;
 	private Boolean active;
+	 private double instaScore;
 
 }
