@@ -14,24 +14,32 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import com.backend.dto.UserDto;
+import com.backend.security.Request;
+import com.backend.security.Response;
 import com.backend.service.UserService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/users")
+@Tag(name="User", description="Create, Read, Delete, Update,")
 public class UserController {
 
 	@Autowired
 	private UserService userService;
 
 	// Create User (Signup)
+	@Operation(summary="signup user")
 	@PostMapping
 	public ResponseEntity<UserDto> signup(@Valid @RequestBody UserDto userDto) {
 		UserDto user = this.userService.createUser(userDto);
 		return new ResponseEntity<>(user, HttpStatus.CREATED);
 	}
+	
 
+	@Operation(summary="update user by email")
 	// Update User by Email
 	@PutMapping("/{email}")
 	public ResponseEntity<UserDto> updateUser(@PathVariable String email, @RequestBody UserDto userDto) {
@@ -39,6 +47,7 @@ public class UserController {
 		return new ResponseEntity<>(updatedUser, HttpStatus.OK);
 	}
 
+	@Operation(summary="delete user by id")
 	// Delete User by User ID
 	@DeleteMapping("/{userId}")
 	public ResponseEntity<String> deleteUser(@PathVariable String userId) {
@@ -47,6 +56,7 @@ public class UserController {
 	}
 
 	// Get All Users
+	@Operation(summary="get all user")
 	@GetMapping
 	public ResponseEntity<List<UserDto>> getAllUsers() {
 	
@@ -61,7 +71,7 @@ public class UserController {
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 	
-	
+	@Operation(summary="insta userId")
 	 @GetMapping("/insta/{username}")
 	    public ResponseEntity<Map> getInstagramUser(@PathVariable String username) {
 	        RestTemplate restTemplate = new RestTemplate();

@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.*;
 import com.backend.dto.InstaPostDto;
 import com.backend.service.InstaPostService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/instapost")
+@Tag(name="User Instagram Post", description="Create, Read, Delete, Update,")
 @RequiredArgsConstructor
 public class InstaPostController {
 

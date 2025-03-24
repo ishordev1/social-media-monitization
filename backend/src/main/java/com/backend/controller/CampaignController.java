@@ -4,6 +4,7 @@ import com.backend.dto.ApiResponse;
 import com.backend.dto.CampaignDto;
 import com.backend.service.CampaignService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -17,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/campaigns")
+@Tag(name="campaign", description="Create, Read, Delete, Update,")
 //requiredArgsConstructor is use to generate @Autowire annotation for final field attribute, so not need to add @dautowire annotation
 @RequiredArgsConstructor
 public class CampaignController {

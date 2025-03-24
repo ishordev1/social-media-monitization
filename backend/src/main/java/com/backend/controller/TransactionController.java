@@ -10,12 +10,14 @@ import com.backend.dto.TransactionDto;
 import com.backend.models.TRANSACTIONTYPE;
 import com.backend.service.TransactionService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/transaction")
+@Tag(name="Bank transation", description="Create, Read, Delete, Update,")
 public class TransactionController {
 
     @Autowired
