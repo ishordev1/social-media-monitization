@@ -40,7 +40,8 @@ public class UserServiceImpl implements UserService {
 		} else {
 			userDto.setStatus(UserStatus.VERIFY);
 		}
-
+		userDto.setActive(true);
+		userDto.setImgName("defaultProfile.png");
 		User user = this.modelMapper.map(userDto, User.class);
 		User savedUser = this.userRepository.save(user);
 

@@ -1,0 +1,119 @@
+/* CampaignCard.css */
+:root {
+    --running-color: #4caf50;
+    --completed-color: #2196f3;
+    --cancelled-color: #f44336;
+}
+
+.campaign-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    max-width: 400px;
+}
+
+.campaign-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.campaign-title {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.campaign-status {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+}
+
+.campaign-description {
+    margin: 0 0 16px 0;
+    color: #666;
+    line-height: 1.4;
+}
+
+.campaign-meta {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+    font-size: 0.9rem;
+}
+
+.meta-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.meta-label {
+    color: #888;
+    font-size: 0.8rem;
+}
+
+.meta-value {
+    font-weight: 500;
+}
+
+.campaign-finance {
+    margin-top: 16px;
+}
+
+.finance-item {
+    margin-bottom: 8px;
+}
+
+.finance-progress {
+    height: 8px;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: var(--running-color);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.finance-numbers {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+}
+
+.finance-amount {
+    font-weight: bold;
+    color: var(--running-color);
+}
+
+.finance-total {
+    color: #888;
+}
+
+.finance-remaining {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    padding-top: 8px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.remaining-label {
+    color: #888;
+}
+
+.remaining-amount {
+    font-weight: bold;
+}

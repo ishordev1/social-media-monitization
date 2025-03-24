@@ -1,38 +1,91 @@
-import React from 'react'
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { doLogin } from "../auth/Index";
+import { login } from "../service/LoginService";
 
 const Signin = () => {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  // Handle input change
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async (event) => {
+    event.preventDefault(); // Prevent default form submission
+    try {
+      const jwtTokenData = await login(formData);
+      await doLogin(jwtTokenData, () => {
+        toast.success("Login successful");
+        if (jwtTokenData.user.role === "CUSTOMER") {
+          navigate('/user/home');
+        } else if (jwtTokenData.user.role === "ADMIN") {
+          navigate('/admin/home');
+        }
+        else {
+          navigate('/brand/home');
+        }
+        setTimeout(() => {
+          window.location.reload();
+        }, 0);
+      });
+    } catch (error) {
+      toast.error("Error occurred during login");
+    }
+  };
+
+
+
+
   return (
     <>
       <div className="container d-flex justify-content-center">
-        <div className="card mt-5">
-
+        <div className="card mt-5 p-3 shadow" style={{ width: "400px" }}>
           <div className="card-body">
-            <h3 className="card-title text-center">
-              Signin Here
-            </h3>
+            <h3 className="card-title text-center">Signin Here</h3>
             <hr />
-            <form className='mt-4'>
+            <form className="mt-4" onSubmit={handleSubmit}>
               <div className="mb-3">
-                <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
-                <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
-                <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
+                <label className="form-label">Email address</label>
+                <input
+                  type="email"
+                  className="form-control"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+                <small className="text-muted">We'll never share your email with anyone else.</small>
               </div>
               <div className="mb-3">
-                <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
-                <input type="password" className="form-control" id="exampleInputPassword1" />
+                <label className="form-label">Password</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                />
               </div>
               <div className="mb-3 form-check">
-                <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                <lab el className="form-check-label" htmlFor="exampleCheck1">Check me out
-                </lab></div>
-              <button type="submit" className="btn btn-primary">Submit</button>
+                <input type="checkbox" className="form-check-input" id="rememberMe" />
+                <label className="form-check-label" htmlFor="rememberMe">Remember me</label>
+              </div>
+              <button type="submit" className="btn btn-primary w-100">Submit</button>
             </form>
           </div>
         </div>
-
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Signin
+export default Signin;

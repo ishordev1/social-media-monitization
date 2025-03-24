@@ -13,6 +13,11 @@ import AdminHome from './pages/Admin/AdminHome'
 import BrandBase from './pages/Brand/BrandBase'
 import BrandHome from './pages/Brand/BrandHome'
 import UserDashbard from './pages/User/UserDashbard'
+import { ToastContainer } from 'react-toastify'
+import UserDashboard from './pages/User/UserDashbard'
+import CampaignCard from './component/User/campaign/CampaignCard'
+import Campaign from './pages/User/Campaign'
+
 
 
 function App() {
@@ -21,6 +26,7 @@ function App() {
   return (
     <>
       <Navbar />
+      <ToastContainer />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path='/signup' element={<Signup />} />
@@ -28,11 +34,11 @@ function App() {
 
 
         {/* user route */}
-        <Route path='/user' element={<UserBase />}>
-          <Route path='home' element={<UserHome />}>
-            {/* here dashboard */}
-            <Route path="dashboard" element={<UserDashbard/>}/>
-          </Route>
+        <Route path='/customer' element={<UserBase />}>
+          <Route path='home' element={<UserHome />} />
+          <Route path='dashboard' element={<UserDashboard />} />
+          <Route path='campaign' element={<Campaign />} />
+
         </Route>
         {/* user route end */}
 
@@ -47,8 +53,8 @@ function App() {
         {/* admin route end */}
 
         {/* brand route start */}
-        <Route path='/brand' element={<BrandBase/>}>
-        <Route path='home' element={<BrandHome/>}/>
+        <Route path='/brand' element={<BrandBase />}>
+          <Route path='home' element={<BrandHome />} />
         </Route>
         {/* brand route end */}
 

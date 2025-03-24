@@ -90,14 +90,7 @@ public class UserController {
 	            ResponseEntity<Map> response = restTemplate.exchange(url1, HttpMethod.GET, entity, Map.class);
 	            
 	            if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
-	                Map<String, Object> responseBody = response.getBody();
-
-	                // Assuming "username" and "followers" are direct keys in the JSON response
-	                String name = (String) responseBody.get("username"); 
-	                Integer followersCount = (Integer) responseBody.get("followers"); 
-
-	                System.out.println("Username: " + name);
-	                System.out.println("Followers: " + followersCount);
+	                Map<String, Object> responseBody = response.getBody(); 
 	            } else {
 	                System.out.println("Failed to fetch data!");
 	            }
