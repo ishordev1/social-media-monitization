@@ -63,7 +63,7 @@ const Navbar = () => {
                                             <NavLink className="nav-link" to="/customer/campaign">All Campaign</NavLink>
                                         </li>
                                         <li className="nav-item">
-                                            <NavLink className="nav-link" to="/customer/profile">Submit Url</NavLink>
+                                            <NavLink className="nav-link" to="/customer/cashback">cash back</NavLink>
                                         </li>
                                     </>
                                 )}

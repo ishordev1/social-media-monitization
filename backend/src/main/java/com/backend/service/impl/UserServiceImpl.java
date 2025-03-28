@@ -1,5 +1,6 @@
 package com.backend.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -42,6 +43,7 @@ public class UserServiceImpl implements UserService {
 		}
 		userDto.setActive(true);
 		userDto.setImgName("defaultProfile.png");
+		userDto.setJoinDate(new Date());
 		User user = this.modelMapper.map(userDto, User.class);
 		User savedUser = this.userRepository.save(user);
 

@@ -44,6 +44,13 @@ public class TransactionController {
         List<TransactionDto> transactions = transactionService.getAllTransactionsByUser(userId);
         return new ResponseEntity<>(transactions, HttpStatus.OK);
     }
+    
+    // ✅ Get all transactions for a specific user
+    @GetMapping
+    public ResponseEntity<List<TransactionDto>> getAllTransactions() {
+        List<TransactionDto> transactions = transactionService.getAllTransactions();
+        return new ResponseEntity<>(transactions, HttpStatus.OK);
+    }
 
     // ✅ Delete a transaction by ID
     @DeleteMapping("/{loadMoneyId}")

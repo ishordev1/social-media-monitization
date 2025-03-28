@@ -1,19 +1,26 @@
-import React from 'react';
+import React, { use, useEffect, useState } from 'react';
+import { getUserScore } from '../../service/UserService';
+import { getCurrentUserDetails } from '../../auth/Index';
+import { toast } from 'react-toastify';
 
 
 const UserDashboard = () => {
   // Website User Profile Data
-  const websiteUser = {
+
+  const [websiteUser, setWebsiteUser] = useState({
     name: "Alex Johnson",
     email: "alex.johnson@example.com",
     joinDate: "March 2022",
     lastLogin: "2 hours ago",
     accountType: "Premium",
     profileComplete: 85
-  };
+  });
 
   // Instagram Profile Data
-  const instagramProfile = {
+
+
+  const [instagramProfile, setInstagramProfile] = useState({
+
     username: "alex_travels",
     fullName: "Alex Travels",
     bio: "Travel Photographer | Content Creator | Exploring the world 🌍",
@@ -28,8 +35,8 @@ const UserDashboard = () => {
       { name: "Food", count: 8 },
       { name: "Cities", count: 15 }
     ]
-  };
 
+  })
   // Calculate Score with more sophisticated formula
   const calculateScore = () => {
     const followerScore = Math.min(instagramProfile.followers / 100, 100);
@@ -52,12 +59,50 @@ const UserDashboard = () => {
 
   const scoreLevel = getScoreLevel();
 
+
+  const [user, setUser] = useState(undefined);
+
+  useEffect(() => {
+    setUser(getCurrentUserDetails());
+
+    if (user !== undefined) {
+
+      setWebsiteUser(prevState => ({
+        ...prevState,
+        name: user.name,
+        email: user.email,
+        joinDate: user.joinDate,
+        lastLogin: "2 hours ago",
+        accountType: user.role,
+        profileComplete: 85
+      }));
+
+
+      getUserScore(user.instaUsername).then((response) => {
+
+        console.log("User Score:", response);
+      }
+      ).catch((error) => {
+        console.error("Error fetching user score:", error);
+        toast.error("Error fetching user score. Please try again later.");
+      }
+      );
+    }
+  }, [])
+
+
+
+
+
   return (
     <div className="container py-4 dashboard-container">
+      {/* {JSON.stringify(user)} */}
       <div className="row">
+
         {/* Website Profile Section */}
         <div className="col-lg-4 mb-4">
           <div className="card profile-card shadow-lg">
+
             <div className="card-header bg-primary text-white">
               <h5 className="mb-0"><i className="bi bi-person-badge me-2"></i>Website Profile</h5>
             </div>

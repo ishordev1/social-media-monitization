@@ -80,6 +80,14 @@ public class TransactionServiceImpl implements TransactionService {
                 .map(transaction -> modelMapper.map(transaction, TransactionDto.class))
                 .collect(Collectors.toList());
     }
+    
+    @Override
+    public List<TransactionDto> getAllTransactions() {
+        List<Transaction> transactions = transactionRepository.findAll();
+        return transactions.stream()
+                .map(transaction -> modelMapper.map(transaction, TransactionDto.class))
+                .collect(Collectors.toList());
+    }
 
     @Override
     public void deleteTransaction(String transactionId) {

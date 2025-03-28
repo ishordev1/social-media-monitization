@@ -22,7 +22,7 @@ public class SwaggerConfig {
 @Bean
 public OpenAPI myCustomConfig() {
 	return new OpenAPI().info(
-			new Info().title("AirBNB Project")
+			new Info().title("Social Media Monetization Project")
 			.description("By Ishor")
 			)
 			//adding server url

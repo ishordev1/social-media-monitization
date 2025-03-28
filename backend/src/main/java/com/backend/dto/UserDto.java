@@ -1,5 +1,6 @@
 package com.backend.dto;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,7 +28,7 @@ public class UserDto {
 	private String password;
 	private String imgName;
 	private String instaUsername;
-	
+	private Date joinDate;
 	private UserStatus status;
 	private Role role;
 	private Boolean active;

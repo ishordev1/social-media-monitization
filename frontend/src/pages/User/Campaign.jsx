@@ -7,23 +7,21 @@ const Campaign = () => {
     const [campaigns, setCampaigns] = useState([]);
 
     useEffect(() => {
-        const fetchCampaigns = async () => {
-            try {
-                const data = await getCampaigns(); // No parameters passed
-                setCampaigns(data);
-                toast.success('Campaigns loaded successfully!');
-            } catch (err) {
-                console.error('Error fetching campaigns:', err);
-                toast.error(err.message || 'Failed to fetch campaigns');
-            }
-        };
+        getCampaigns()
+            .then((response) => {
+                setCampaigns(response);
+                console.log("data" + response.data);
+                // toast.success('Campaigns fetched successfully!');
 
-        fetchCampaigns();
-    }, []); // Empty dependency array means it runs once on mount
+            })
+            .catch((error) => {
+                toast.error('Error fetching campaigns: ' + error.message);
+            });
+    }, []);
 
     return (
-        <div className="campaign-list-container">
-            <div className="campaign-list">
+        <div className="campaign-list-container   bg-Color p-2">
+            <div className="campaign-list d-flex flex-wrap justify-content-center">
                 {campaigns.length === 0 ? (
                     <div className="no-campaigns-message">
                         No campaigns found
@@ -33,6 +31,7 @@ const Campaign = () => {
                         <CampaignCard
                             key={campaign.campaignId}
                             campaign={campaign}
+                            width="350px"
                         />
                     ))
                 )}

@@ -15,8 +15,9 @@ import BrandHome from './pages/Brand/BrandHome'
 import UserDashbard from './pages/User/UserDashbard'
 import { ToastContainer } from 'react-toastify'
 import UserDashboard from './pages/User/UserDashbard'
-import CampaignCard from './component/User/campaign/CampaignCard'
+
 import Campaign from './pages/User/Campaign'
+import Cashback from './pages/User/cashback/Cashback'
 
 
 
@@ -38,7 +39,7 @@ function App() {
           <Route path='home' element={<UserHome />} />
           <Route path='dashboard' element={<UserDashboard />} />
           <Route path='campaign' element={<Campaign />} />
-
+          <Route path='cashback' element={<Cashback />} />
         </Route>
         {/* user route end */}
 

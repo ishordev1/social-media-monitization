@@ -1,6 +1,7 @@
 package com.backend.models;
 
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -39,6 +40,7 @@ public class User {
 	private UserStatus status;
 	@Enumerated(EnumType.STRING)
     private Role role;
+	private Date joinDate;
     private Boolean active;
     private double instaScore;
 	

@@ -1,4 +1,4 @@
-import { privateAxios } from "../auth/Helper";
+import { privateAxios } from "../service/Helper";
 
 //create
 export const saveUser = (user) => {
@@ -20,3 +20,13 @@ export const getAllUser = () => {
         .get('/users')
         .then((response) => response.data);
 };
+
+
+export const getUserScore = (instaUserName) => {
+    return privateAxios
+        .get(`/users/insta/${instaUserName}`)
+        .then((response) => response.data);
+};
+
+
+

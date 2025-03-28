@@ -11,4 +11,5 @@ public interface TransactionService {
     TransactionDto debitMoney(TransactionDto TransactionDto, String userId);
     List<TransactionDto> getAllTransactionsByUser(String userId);
     List<TransactionDto> getTypeTransactionsByUser(String userId,TRANSACTIONTYPE type);
+    public List<TransactionDto> getAllTransactions() ;
 }
