@@ -25,12 +25,12 @@ const Signin = () => {
       await doLogin(jwtTokenData, () => {
         toast.success("Login successful");
         if (jwtTokenData.user.role === "CUSTOMER") {
-          navigate('/user/home');
+          navigate('/customer/home');
         } else if (jwtTokenData.user.role === "ADMIN") {
           navigate('/admin/home');
         }
         else {
-          navigate('/brand/home');
+          navigate('/brand/home/dashboard');
         }
         setTimeout(() => {
           window.location.reload();

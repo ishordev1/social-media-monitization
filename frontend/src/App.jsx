@@ -18,6 +18,10 @@ import UserDashboard from './pages/User/UserDashbard'
 
 import Campaign from './pages/User/Campaign'
 import Cashback from './pages/User/cashback/Cashback'
+import BrandDashboard from './pages/Brand/dashboard/BrandDashboard'
+import LoadMoney from './pages/Brand/loadMoney/LoadMoney'
+import BrandCampaign from './pages/Brand/campaing/BrandCampaign'
+import ReviewPost from './pages/Admin/ReviewPost/ReviewPost'
 
 
 
@@ -48,14 +52,23 @@ function App() {
           <Route path='home' element={<AdminHome />} >
             {/* here dashboard */}
 
+
           </Route>
+
+          <Route path='accept-url' element={<ReviewPost />} />
         </Route>
 
         {/* admin route end */}
 
         {/* brand route start */}
         <Route path='/brand' element={<BrandBase />}>
-          <Route path='home' element={<BrandHome />} />
+          <Route path='home' element={<BrandHome />} >
+            <Route path='dashboard' element={<BrandDashboard />} />
+            <Route path="loadmoney" element={<LoadMoney />} />
+
+          </Route>
+          <Route path='campaing' element={<BrandCampaign />} />
+
         </Route>
         {/* brand route end */}
 

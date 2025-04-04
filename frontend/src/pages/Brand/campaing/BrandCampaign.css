@@ -1,0 +1,70 @@
+/* Custom styles for compact form */
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.border-dashed {
+    border: 2px dashed #dee2e6;
+}
+
+.file-upload-wrapper {
+    transition: all 0.3s ease;
+}
+
+.file-upload-wrapper:hover {
+    transform: translateY(-1px);
+}
+
+.card {
+    border-radius: 0.5rem;
+}
+
+.input-group-sm .input-group-text {
+    padding: 0.25rem 0.5rem;
+}
+
+.form-control-sm,
+.form-select-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+.text-muted {
+    font-size: 0.75rem;
+}
+
+/* Jodit Editor Customizations */
+.jodit-editor-container {
+    margin-bottom: 1rem;
+    border-radius: 0.25rem;
+    overflow: hidden;
+    border: 1px solid #dee2e6;
+}
+
+.jodit-container,
+.jodit-workplace {
+    border-radius: 0.25rem !important;
+}
+
+.jodit-toolbar__box {
+    background-color: #f8f9fa !important;
+    border-bottom: 1px solid #dee2e6 !important;
+}
+
+.jodit-wysiwyg {
+    padding: 0.5rem !important;
+    min-height: 200px !important;
+    font-family: inherit !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+}
+
+/* Fix for cursor positioning */
+.jodit-wysiwyg p {
+    margin-bottom: 0.5rem !important;
+}

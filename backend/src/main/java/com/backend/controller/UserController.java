@@ -114,5 +114,23 @@ public class UserController {
 	
 	
 	
+	   @GetMapping("/proxy-image")
+	    public ResponseEntity<byte[]> proxyImage(@RequestParam String url) {
+	    	  RestTemplate restTemplate = new RestTemplate();
+	        try {
+	        	
+	            HttpHeaders headers = new HttpHeaders();
+	            headers.add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36");
+
+	            ResponseEntity<byte[]> response = restTemplate.getForEntity(url, byte[].class);
+	            HttpHeaders responseHeaders = new HttpHeaders();
+	            responseHeaders.set("Content-Type", response.getHeaders().getContentType().toString());
+
+	            return new ResponseEntity<>(response.getBody(), responseHeaders, HttpStatus.OK);
+	        } catch (Exception e) {
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+	        }
+	    }
+	
 	
 }

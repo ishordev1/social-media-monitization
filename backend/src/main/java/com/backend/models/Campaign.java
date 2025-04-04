@@ -6,6 +6,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -30,6 +31,7 @@ private String title;
 	@NotNull(message = "Campaign amount is required!........")
 private Double amount;
 private String campaignImgName;
+@Column(length = 100000) 
 private String description;
 private Date createdDate;
 private Double distributeAmount;

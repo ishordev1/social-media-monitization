@@ -177,3 +177,67 @@
     font-size: 0.9rem;
     text-align: center;
 }
+
+
+
+
+.campaign-card {
+    position: relative;
+    transition: all 0.3s ease;
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.campaign-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.campaign-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.campaign-status {
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 14px;
+    color: white;
+}
+
+.campaign-short-description {
+    font-size: 14px;
+    color: #555;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.campaign-popup {
+    position: absolute;
+    bottom: 110%;
+    /* Show above the card */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 320px;
+    background: rgba(0, 0, 0, 0.85);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    z-index: 10;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    font-size: 14px;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.campaign-card:hover .campaign-popup {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-50%) translateY(-10px);
+}

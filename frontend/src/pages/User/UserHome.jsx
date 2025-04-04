@@ -26,33 +26,37 @@ const UserHome = () => {
   });
 
   useEffect(() => {
-    const user = getCurrentUserDetails();
+    const fetchUserData = async () => {
+      const user = getCurrentUserDetails();
 
-    if (user) {
-      setUserData(prev => ({
-        ...prev,
-        name: user.name,
-        email: user.email,
-        joinDate: user.joinDate,
-        lastLogin: "2 hours ago",
-        accountType: user.role,
-        profileComplete: 85,
-        instaUsername: user.instaUsername,
-      }));
+      if (user) {
+        setUserData(prev => ({
+          ...prev,
+          name: user.name,
+          email: user.email,
+          joinDate: user.joinDate,
+          lastLogin: "2 hours ago",
+          accountType: user.role,
+          profileComplete: 85,
+          instaUsername: user.instaUsername,
+        }));
 
-      getUserScore(user.instaUsername)
-        .then((response) => {
-          if (response.status === "ok" && response.data.user) {
-            const userData = response.data.user;
-            const formattedData = formatInstagramData(userData);
-            setUserData(prev => ({ ...prev, ...formattedData }));
+        if (user.instaUsername) {
+          try {
+            const response = await getUserScore(user.instaUsername);
+            if (response.status === "ok" && response.data.user) {
+              const formattedData = formatInstagramData(response.data.user);
+              setUserData(prev => ({ ...prev, ...formattedData }));
+            }
+          } catch (error) {
+            console.error("Error fetching user score:", error);
+            toast.error("Error fetching user data. Please try again later.");
           }
-        })
-        .catch((error) => {
-          console.error("Error fetching user score:", error);
-          toast.error("Error fetching user data. Please try again later.");
-        });
-    }
+        }
+      }
+    };
+
+    fetchUserData();
   }, []);
 
   const formatInstagramData = (apiData) => {
@@ -123,11 +127,15 @@ const UserHome = () => {
       <div className="profile-header">
         <div className="profile-main">
           <img
-            src="https://randomuser.me/api/portraits/men/32.jpg"
+            src={`http://localhost:8080/api/users/proxy-image?url=${encodeURIComponent(userData.profilePic)}`}
+            alt="Profile Picture"
+            className="rounded-circle mb-3"
+            style={{ width: "150px", height: "150px", objectFit: "cover" }}
+            onError={(e) => e.target.src = "https://randomuser.me/api/portraits/men/32.jpg"}
 
-            alt="Profile"
-            className="profile-avatar"
+
           />
+
           <div className="profile-info">
             <h1>{userData.name}</h1>
             <p className="username">@{userData.instaUsername}</p>
@@ -225,7 +233,16 @@ const UserHome = () => {
             <div className="posts-grid">
               {userData.recentPosts.map((post, index) => (
                 <div key={index} className="post-thumbnail">
-                  <img src={post.thumbnail} alt={`Post ${index}`} />
+                  {/* <img src={post.thumbnail} alt={`Post ${index}`} /> */}
+                  <img
+
+                    src={`http://localhost:8080/api/users/proxy-image?url=${encodeURIComponent(post.thumbnail)}`}
+                    alt="Post Thumbnail"
+                    style={{ objectFit: "cover", height: "200px", width: "100%" }}
+                    onError={(e) => e.target.src = "https://randomuser.me/api/portraits/men/32.jpg"}
+
+                  />
+
                   <div className="post-stats">
                     <span>♥ {post.likes}</span>
                     <span>💬 {post.comments}</span>

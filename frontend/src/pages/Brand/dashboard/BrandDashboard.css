@@ -1,0 +1,37 @@
+.balance-item {
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+}
+
+.balance-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.balance-item:nth-child(1):hover {
+    border-left-color: var(--bs-primary);
+}
+
+.balance-item:nth-child(2):hover {
+    border-left-color: var(--bs-danger);
+}
+
+.balance-item:nth-child(3):hover {
+    border-left-color: var(--bs-success);
+}
+
+.card {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.card-header {
+    border-radius: 10px 10px 0 0 !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .balance-item {
+        padding: 1rem !important;
+    }
+}

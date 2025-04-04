@@ -13,4 +13,10 @@ export const getTransactionByUserId = (userId) => {
         .get(`/transaction/${userId}`)
         .then((response) => response.data);
 };
+// http://localhost:8080/api/transaction/credit/eec60d7d-2bc2-4f13-85b1-a1698a23ac2a
 
+export const creditMoney = (userId, data) => {
+    return privateAxios
+        .post(`/transaction/credit/${userId}`, data)
+        .then((response) => response.data);
+};

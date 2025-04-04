@@ -19,10 +19,10 @@ import lombok.NoArgsConstructor;
 public class InstaPost {
 	@Id
 	private String instaPostId;
-	@Column(unique = true,name = "Post is already exist!.......")
+	@Column(unique = true)
 	@NotBlank(message ="post url is requires")
 	private String postUrl;
-	@Column(unique = true,name="product Code is already exist!....................")
+	@Column(unique = true)
 	@NotBlank(message ="product code required!")
 	private String productUniqueCode;
 	private Date date;

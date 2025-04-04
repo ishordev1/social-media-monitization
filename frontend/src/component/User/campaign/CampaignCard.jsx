@@ -73,7 +73,8 @@ const CampaignCard = ({ campaign, width = '350px' }) => {
                 </span>
             </div>
 
-            <p className="campaign-description">{campaign.description}</p>
+            {/* Only showing 30 words of the description */}
+            <p className="campaign-description" dangerouslySetInnerHTML={{ __html: campaign.description.slice(0, 30) }}></p>
 
             <div className="campaign-meta">
                 <div className="meta-item">
@@ -106,7 +107,7 @@ const CampaignCard = ({ campaign, width = '350px' }) => {
                     <span className="remaining-amount">{formatCurrency(campaign.remainingAmount)}</span>
                 </div>
             </div>
-            <br></br>
+
             <div className="participation-form mt-4 p-2 border-top bg-primary text-white rounded">
                 <b className="form-title">Participate in this campaign</b>
                 {submitSuccess ? (

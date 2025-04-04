@@ -74,9 +74,11 @@ const Navbar = () => {
                                         <li className="nav-item">
                                             <NavLink className="nav-link" to="/admin/home">Home</NavLink>
                                         </li>
-                                        {/* <li className="nav-item">
-                                            <NavLink className="nav-link" to="/admin/dashboard">Dashboard</NavLink>
+                                        <li className="nav-item">
+                                            <NavLink className="nav-link" to="/admin/accept-url">Review Post</NavLink>
                                         </li>
+
+                                        {/*
                                         <li className="nav-item">
                                             <NavLink className="nav-link" to="/admin/users">Users</NavLink>
                                         </li>
@@ -90,11 +92,12 @@ const Navbar = () => {
                                 {login && role === "brand" && (
                                     <>
                                         <li className="nav-item">
-                                            <NavLink className="nav-link" to="/brand/home">Home</NavLink>
+                                            <NavLink className="nav-link" to="/brand/home/dashboard">Home</NavLink>
                                         </li>
-                                        {/* <li className="nav-item">
-                                            <NavLink className="nav-link" to="/brand/products">Manage Products</NavLink>
+                                        <li className="nav-item">
+                                            <NavLink className="nav-link" to="/brand/campaing">add campaign</NavLink>
                                         </li>
+                                        {/* 
                                         <li className="nav-item">
                                             <NavLink className="nav-link" to="/brand/sales">Sales</NavLink>
                                         </li> */}
