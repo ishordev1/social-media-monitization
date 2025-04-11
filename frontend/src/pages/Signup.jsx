@@ -39,7 +39,7 @@ const Signup = () => {
 
   return (
     <div className="container d-flex flex-column align-items-center">
-      <div className="card mt-5 p-3 shadow" style={{ width: "600px" }}>
+      <div className="card mt-5  p-3 shadow" style={{ width: "600px" }}>
         <div className="card-body">
           <h3 className="card-title text-center">Signup Here</h3>
           <form onSubmit={handleSubmit}>

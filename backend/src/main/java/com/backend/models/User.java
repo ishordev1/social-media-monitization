@@ -5,6 +5,10 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,9 +33,10 @@ public class User {
 	@Id
 	private String userId;
 	private String name;
-	@Column(unique = true,name="Email is already exist!...")
+	@Column(unique = true)
 	private String email;
 	@NotBlank(message = "password is required!.............")
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private String password;
 	private String imgName;
 	@NotBlank(message = "Instagram user id is required!.............")

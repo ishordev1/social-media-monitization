@@ -35,7 +35,9 @@ public class UserServiceImpl implements UserService {
 		String userId = UUID.randomUUID().toString();
 		userDto.setUserId(userId);
 		userDto.setPassword(this.passeEncoder.encode(userDto.getPassword()));
-
+		if (this.userRepository.findByEmail(userDto.getEmail()).isPresent()) {
+			throw new RuntimeException("user is already exist..");
+		}
 		if (userDto.getRole() == Role.CUSTOMER) {
 			userDto.setStatus(UserStatus.PENDING);
 		} else {

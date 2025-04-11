@@ -17,7 +17,7 @@ import io.swagger.v3.oas.models.tags.Tag;
 @Configuration
 public class SwaggerConfig {
 	
-	//http://localhost:8080/swagger-ui/index.html Default url of swagger
+	//http://localhost:8080/swagger-ui/index.html         ----->Default url of swagger
 	
 @Bean
 public OpenAPI myCustomConfig() {
