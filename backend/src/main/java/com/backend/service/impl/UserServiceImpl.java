@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
 		userDto.setUserId(userId);
 		userDto.setPassword(this.passeEncoder.encode(userDto.getPassword()));
 		if (this.userRepository.findByEmail(userDto.getEmail()).isPresent()) {
-			throw new RuntimeException("user is already exist..");
+			throw new ResourceNotFoundException("user is already exist..");
 		}
 		if (userDto.getRole() == Role.CUSTOMER) {
 			userDto.setStatus(UserStatus.PENDING);

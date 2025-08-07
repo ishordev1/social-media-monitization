@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { balanceInfo } from '../../../service/BalanceInfo';
 import { getCurrentUserDetails } from '../../../auth/Index';
-import './BrandDashboard.css';
 
-const BrandDashboard = () => {
+
+const ShowBalance = () => {
     const [currentUser, setCurrentUser] = useState(null);
     const [balanceData, setBalanceData] = useState(null);
     const [error, setError] = useState(null);
@@ -41,7 +41,7 @@ const BrandDashboard = () => {
                 <div className="col-md-8 col-lg-6">
                     <div className="card shadow-lg border-0">
                         <div className="card-header bg-primary text-white">
-                            <h2 className="card-title mb-0">Account Balance Summary</h2>
+                            <h2 className="card-title mb-0">Account test Balance Summary</h2>
                         </div>
                         <div className="card-body">
                             <div className="balance-item mb-4 p-3 rounded bg-light">
@@ -114,4 +114,4 @@ const BrandDashboard = () => {
     );
 };
 
-export default BrandDashboard;
+export default ShowBalance;

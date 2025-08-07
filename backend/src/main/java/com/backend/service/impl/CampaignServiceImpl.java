@@ -54,6 +54,7 @@ public class CampaignServiceImpl implements CampaignService {
 		campaign.setUser(user);
 		campaign.setStatus(CAMPAIGNSTATUS.RUNNING);
 		campaign.setDistributeAmount(0.0);
+		
 		campaign.setRemainingAmount(campaignDto.getAmount());
 		Campaign savedCampaign = campaignRepository.save(campaign);
 		TransactionDto transactionDto = new TransactionDto();

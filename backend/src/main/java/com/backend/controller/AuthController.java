@@ -55,7 +55,7 @@ public class AuthController {
 		      
 		    UserDto user = this.userService.getUserByEmail( userDetails.getUsername());
 				Response res=Response.builder().token(token).user(user).build();
-				return new ResponseEntity<>(res,HttpStatus.CREATED);
+				return new ResponseEntity<>(res,HttpStatus.OK);
 		}
 
 	

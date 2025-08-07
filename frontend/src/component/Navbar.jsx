@@ -80,10 +80,10 @@ const Navbar = () => {
 
                                         {/*
                                         <li className="nav-item">
-                                            <NavLink className="nav-link" to="/admin/users">Users</NavLink>
+                                            <NavLink className="nav-link" to="/admin/home/users">Users</NavLink>
                                         </li>
                                         <li className="nav-item">
-                                            <NavLink className="nav-link" to="/admin/reports">Reports</NavLink>
+                                            <NavLink className="nav-link" to="/admin/home/reports">Reports</NavLink>
                                         </li> */}
                                     </>
                                 )}

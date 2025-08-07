@@ -17,7 +17,9 @@ export const participateInCampaign = (campaignId, userId, data) => {
 
 // http://localhost:8080/api/campaigns/eec60d7d-2bc2-4f13-85b1-a1698a23ac2a
 export const createCampaign = (userId, campaignData) => {
+    console.log(campaignData);
+
     return privateAxios
-        .post(`/campaigns/${userId}`, campaignData)
+        // .post(`/campaigns/${userId}`, campaignData)
         .then((response) => response.data);
 };

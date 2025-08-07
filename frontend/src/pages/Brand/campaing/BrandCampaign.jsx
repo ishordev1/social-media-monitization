@@ -37,7 +37,7 @@ const BrandCampaign = () => {
                 })
                 .catch((error) => {
                     console.error(error);
-                    setError("Failed to load balance information");
+                    setError("Balance Rs: 0.00");
                 });
         }
     }, []);

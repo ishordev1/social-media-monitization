@@ -37,7 +37,7 @@ const Signin = () => {
         }, 0);
       });
     } catch (error) {
-      toast.error("Error occurred during login");
+      toast.error(error.message);
     }
   };
 

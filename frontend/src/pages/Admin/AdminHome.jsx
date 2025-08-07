@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Outlet } from 'react-router-dom'
 
 const AdminHome = () => {
     return (
@@ -10,27 +10,27 @@ const AdminHome = () => {
                     <div className="" id="navbarSupportedContent">
                         <ul className="navbar-nav d-block  mb-lg-0 ">
                             <li className="nav-item">
-                                <NavLink to='/user/home' className="nav-link"  >Dashboard</NavLink>
+                                <NavLink to='/admin/home/dashboard' className="nav-link"  >Dashboard</NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink to='/user/home' className="nav-link"  >User</NavLink>
+                                <NavLink to='/admin/home/user' className="nav-link"  >User</NavLink>
                             </li>
 
                             <li className="nav-item">
-                                <NavLink to='/user/home' className="nav-link"  >Brand</NavLink>
+                                <NavLink to='/admin/home/brand' className="nav-link"  >Brand</NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink to='/user/home' className="nav-link"  >Account Approve</NavLink>
+                                <NavLink to='/admin/home/accountrequest' className="nav-link"  >Account request</NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink to='/user/home' className="nav-link"  >Account</NavLink>
+                                <NavLink to='/admin/home/account' className="nav-link"  >Account</NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink to='/user/home' className="nav-link"  >Setting</NavLink>
+                                <NavLink to='/admin/home/setting' className="nav-link"  >Setting</NavLink>
                             </li>
-            
 
-                         
+
+
                         </ul>
 
                     </div>
@@ -40,7 +40,7 @@ const AdminHome = () => {
                 {/* navbar end */}
 
                 <div className="container right-side">
-                    <h1>hello</h1>
+                    <Outlet />
                 </div>
             </div>
 

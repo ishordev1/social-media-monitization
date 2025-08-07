@@ -22,6 +22,7 @@ import BrandDashboard from './pages/Brand/dashboard/BrandDashboard'
 import LoadMoney from './pages/Brand/loadMoney/LoadMoney'
 import BrandCampaign from './pages/Brand/campaing/BrandCampaign'
 import ReviewPost from './pages/Admin/ReviewPost/ReviewPost'
+import Dashboard from './pages/Admin/Dashboard'
 
 
 
@@ -51,7 +52,7 @@ function App() {
         <Route path='/admin' element={<AdminBase />}>
           <Route path='home' element={<AdminHome />} >
             {/* here dashboard */}
-
+            <Route path='dashboard' element={<Dashboard />} />
 
           </Route>
 
