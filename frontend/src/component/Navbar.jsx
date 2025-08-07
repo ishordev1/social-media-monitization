@@ -63,7 +63,10 @@ const Navbar = () => {
                                             <NavLink className="nav-link" to="/customer/campaign">All Campaign</NavLink>
                                         </li>
                                         <li className="nav-item">
-                                            <NavLink className="nav-link" to="/customer/cashback">cash back</NavLink>
+                                            <NavLink className="nav-link" to="/customer/cashback">Reward</NavLink>
+                                        </li>
+                                        <li className="nav-item">
+                                            <NavLink className="nav-link" to="/customer/profile">Profile</NavLink>
                                         </li>
                                     </>
                                 )}

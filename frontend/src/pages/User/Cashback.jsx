@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { getAllTransaction } from '../../../service/TransactionService';
+import { getAllTransaction } from '../../service/TransactionService';
 import { toast } from 'react-toastify';
-import { getCurrentUserDetails } from '../../../auth/Index';
-import './Cashback.css'; // Create this CSS file for styling
+import { getCurrentUserDetails } from '../../auth/Index';
+import './css/Cashback.css';
 
 const Cashback = () => {
     const [user, setUser] = useState(undefined);
