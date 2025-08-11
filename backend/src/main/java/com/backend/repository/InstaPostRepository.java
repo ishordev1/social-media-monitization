@@ -12,4 +12,5 @@ public interface InstaPostRepository extends JpaRepository<InstaPost, String> {
 	List<InstaPost> findByUserUserId(String userId);
 	List<InstaPost> findByCampaignCampaignId(String campaignId);
 	Optional<InstaPost> findByPostUrl(String postUrl);
+	Optional<InstaPost> findByProductUniqueCode(String uniqueCode);
 }

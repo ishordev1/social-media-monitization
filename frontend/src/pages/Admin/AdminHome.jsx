@@ -4,9 +4,9 @@ import { NavLink, Outlet } from 'react-router-dom'
 const AdminHome = () => {
     return (
         <>
-            <div className="d-flex ">
+            <div className="d-flex bg-color">
                 {/* navbar start  */}
-                <nav className="navbar-dark navbar-expand-lg bg-color  left-side">
+                <nav className="navbar-dark navbar-expand-lg   left-side">
                     <div className="" id="navbarSupportedContent">
                         <ul className="navbar-nav d-block  mb-lg-0 ">
                             <li className="nav-item">

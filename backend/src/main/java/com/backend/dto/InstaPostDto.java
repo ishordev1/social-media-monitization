@@ -10,11 +10,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class InstaPostDto {
     private String instaPostId;
     private String postUrl;
@@ -25,6 +27,6 @@ public class InstaPostDto {
     private String description;
     private Boolean adminVisit;
     
-    private User user;  
-    private Campaign campaign; 
+    private UserDto user;  
+    private String campaignId; 
 }

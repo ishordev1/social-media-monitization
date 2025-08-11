@@ -24,6 +24,13 @@ public class GlobalExceptionHandler {
 	          ApiResponse responseMessage =  ApiResponse.builder().message(ex.getMessage()).status(true).build();
 	          return new ResponseEntity<>(responseMessage,HttpStatus.NOT_FOUND);
 	    }
+	 
+	 @ExceptionHandler(AlreadyExistException.class)
+	    public ResponseEntity<ApiResponse> AlreadyExistExceptionHandler(AlreadyExistException ex){
+	         
+	          ApiResponse responseMessage =  ApiResponse.builder().message(ex.getMessage()).status(true).build();
+	          return new ResponseEntity<>(responseMessage,HttpStatus.FOUND);
+	    }
 
 
 	    //MethodArgumentNotValidException
@@ -38,4 +45,7 @@ public class GlobalExceptionHandler {
 	              });
 	              return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
 	    }
+	    
+ 
+	    
 }

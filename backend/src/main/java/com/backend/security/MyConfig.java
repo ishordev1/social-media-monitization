@@ -51,7 +51,7 @@ public class MyConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf(csrf -> csrf.disable())
-				.authorizeHttpRequests(auth -> auth.requestMatchers("/api/*").authenticated().anyRequest().permitAll())
+				.authorizeHttpRequests(auth -> auth.requestMatchers("/m/api/*").authenticated().anyRequest().permitAll())
 				.exceptionHandling(ex -> ex.authenticationEntryPoint(point))
 				.sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)

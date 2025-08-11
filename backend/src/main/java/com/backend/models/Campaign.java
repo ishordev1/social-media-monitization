@@ -43,7 +43,7 @@ private CAMPAIGNSTATUS status;
 private User user;
 //here is not using cascade so child is not delete, if we want to delete campaign
 //then first make child null in campaign then delete this campaign
-@OneToMany(mappedBy = "campaign")
+@OneToMany(mappedBy = "campaign",cascade = CascadeType.REMOVE)
 @JsonIgnore 
 private List<InstaPost> posts; 
 

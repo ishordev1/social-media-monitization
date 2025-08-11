@@ -60,8 +60,10 @@ public class TransactionController {
     }
     
     @GetMapping("/{userId}/type/{type}")
-    ResponseEntity<List<TransactionDto>> getTransactionType(@PathVariable String userId,@PathVariable TRANSACTIONTYPE type){
-    	List<TransactionDto> transaction = this.transactionService.getTypeTransactionsByUser(userId, type);
+    ResponseEntity<List<TransactionDto>> getTransactionType(@PathVariable String userId,@PathVariable String type){
+    	type=type.toUpperCase();
+    	TRANSACTIONTYPE t = TRANSACTIONTYPE.valueOf(TRANSACTIONTYPE.class, type);
+    	List<TransactionDto> transaction = this.transactionService.getTypeTransactionsByUser(userId, t);
     	return new ResponseEntity<List<TransactionDto>>(transaction,HttpStatus.OK);
     }
     

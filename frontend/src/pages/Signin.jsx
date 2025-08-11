@@ -36,9 +36,10 @@ const Signin = () => {
           window.location.reload();
         }, 0);
       });
-    } catch (error) {
-      toast.error(error.message);
-    }
+    } catch (err) {
+    console.log("Login error:", err.response?.data?.message);
+    toast.error(err.response?.data?.message || "Login failed. Please check your credentials.");
+  }
   };
 
 

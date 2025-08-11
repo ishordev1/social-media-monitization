@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { signUp } from "../service/LoginService";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const navigate=useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -24,6 +26,8 @@ const Signup = () => {
     signUp(formData).then((data) => {
       console.log(data);
       toast.success("Login successful");
+      // Redirect to login or home page after successful signup
+      navigate("/signin");
     }
     ).catch((error) => {
       console.log(error);

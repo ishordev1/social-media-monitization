@@ -26,6 +26,6 @@ public class CampaignDto {
     private Double remainingAmount;
     private CAMPAIGNSTATUS status;
     private User user;
-    private List<InstaPost> posts; 
     private String campaignImgName;
+    private List<InstaPostDto> posts; 
 }

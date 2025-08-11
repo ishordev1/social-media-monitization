@@ -56,9 +56,7 @@ const Navbar = () => {
                                         <li className="nav-item">
                                             <NavLink className="nav-link" to="/customer/home">Home</NavLink>
                                         </li>
-                                        <li className="nav-item">
-                                            <NavLink className="nav-link" to="/customer/dashboard">Your Score</NavLink>
-                                        </li>
+                                       
                                         <li className="nav-item">
                                             <NavLink className="nav-link" to="/customer/campaign">All Campaign</NavLink>
                                         </li>
@@ -78,7 +76,7 @@ const Navbar = () => {
                                             <NavLink className="nav-link" to="/admin/home">Home</NavLink>
                                         </li>
                                         <li className="nav-item">
-                                            <NavLink className="nav-link" to="/admin/accept-url">Review Post</NavLink>
+                                            <NavLink className="nav-link" to="/admin/home/review-post">Review Post</NavLink>
                                         </li>
 
                                         {/*
@@ -98,7 +96,7 @@ const Navbar = () => {
                                             <NavLink className="nav-link" to="/brand/home/dashboard">Home</NavLink>
                                         </li>
                                         <li className="nav-item">
-                                            <NavLink className="nav-link" to="/brand/campaing">add campaign</NavLink>
+                                            <NavLink className="nav-link" to="/brand/home/addcampaign">add campaign</NavLink>
                                         </li>
                                         {/* 
                                         <li className="nav-item">

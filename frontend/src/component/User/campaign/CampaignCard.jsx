@@ -1,15 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './CampaignCard.css';
 import { participateInCampaign } from '../../../service/CampaignService';
 import { toast } from 'react-toastify';
+import { getCurrentUserDetails } from '../../../auth/Index';
 
 const CampaignCard = ({ campaign, width = '350px' }) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitSuccess, setSubmitSuccess] = useState(false);
+    const [showModal, setShowModal] = useState(false);
     const [participationData, setParticipationData] = useState({
         postUrl: '',
         productUniqueCode: ''
     });
+    const [user, setUser] = useState(null);
+    useEffect(() => {
+        const user = getCurrentUserDetails();
+        setUser(user);
+        
+    }, [])
 
     const formatCurrency = (amount) => {
         return new Intl.NumberFormat('en-US', {
@@ -44,7 +52,7 @@ const CampaignCard = ({ campaign, width = '350px' }) => {
         try {
             await participateInCampaign(
                 campaign.campaignId,
-                campaign.user.userId,
+                user.userId,
                 participationData
             );
             setSubmitSuccess(true);
@@ -53,8 +61,14 @@ const CampaignCard = ({ campaign, width = '350px' }) => {
                 postUrl: '',
                 productUniqueCode: ''
             });
+            // Close the modal after 2 seconds
+            setTimeout(() => {
+                setShowModal(false);
+                setSubmitSuccess(false);
+            }, 2000);
         } catch (error) {
-            toast.error('Error participating in campaign: ' + error.message);
+            console.log(error);
+            toast.error('Error: ' + error.response.data.message);
         } finally {
             setIsSubmitting(false);
         }
@@ -62,8 +76,14 @@ const CampaignCard = ({ campaign, width = '350px' }) => {
 
     return (
         <div className="campaign-card shadow m-2" style={{ width }}>
-            {/* Existing card content remains the same */}
-            <div className="campaign-header bg-warning p-2 rounded">
+            {/* Card content remains the same until the participation section */}
+            <div className="campaign-header bg-warning p-2 rounded display-flex">
+                <img
+                    src={'https://logo.clearbit.com/apple.com'}
+                    alt={` logo`}
+                    className="rounded-circle me-3 border border-white shadow-sm"
+                    style={{ width: '40px', height: '40px', objectFit: 'cover' }}
+                />
                 <h3 className="campaign-title">{campaign.title}</h3>
                 <span
                     className="campaign-status"
@@ -73,7 +93,6 @@ const CampaignCard = ({ campaign, width = '350px' }) => {
                 </span>
             </div>
 
-            {/* Only showing 30 words of the description */}
             <p className="campaign-description" dangerouslySetInnerHTML={{ __html: campaign.description.slice(0, 30) }}></p>
 
             <div className="campaign-meta">
@@ -108,45 +127,92 @@ const CampaignCard = ({ campaign, width = '350px' }) => {
                 </div>
             </div>
 
-            <div className="participation-form mt-4 p-2 border-top bg-primary text-white rounded">
-                <b className="form-title">Participate in this campaign</b>
-                {submitSuccess ? (
-                    <div className="alert alert-success">
-                        Thank you for participating!
+            {/* Button to trigger modal */}
+            <button
+                type="button"
+                className="btn btn-primary w-100 mt-3"
+                data-bs-toggle="modal"
+                data-bs-target={`#campaignModal-${campaign.campaignId}`}
+                onClick={() => setShowModal(true)}
+            >
+                Participate in Campaign
+            </button>
+
+            {/* Bootstrap Modal */}
+            <div
+                className="modal fade"
+                id={`campaignModal-${campaign.campaignId}`}
+                tabIndex="-1"
+                aria-labelledby="campaignModalLabel"
+                aria-hidden="true"
+            >
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="campaignModalLabel">
+                                Participate in {campaign.title}
+                            </h5>
+                            <button
+                                type="button"
+                                className="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                                onClick={() => {
+                                    setShowModal(false);
+                                    setSubmitSuccess(false);
+                                }}
+                            ></button>
+                        </div>
+                        <div className="modal-body">
+                            {submitSuccess ? (
+                                <div className="alert alert-success">
+                                    Thank you for participating!
+                                </div>
+                            ) : (
+                                <form onSubmit={handleSubmit}>
+                                    <div className="mb-3">
+                                        <label htmlFor="postUrl" className="form-label">Submission URL</label>
+                                        <input
+                                            type="url"
+                                            className="form-control"
+                                            id="postUrl"
+                                            name="postUrl"
+                                            placeholder="Enter your submission URL"
+                                            value={participationData.postUrl}
+                                            onChange={handleChange}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="productUniqueCode" className="form-label">Product Unique Code</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            id="productUniqueCode"
+                                            name="productUniqueCode"
+                                            placeholder="Enter your Product Unique Code"
+                                            value={participationData.productUniqueCode}
+                                            onChange={handleChange}
+                                            required
+                                        />
+                                    </div>
+                                    <button
+                                        type="submit"
+                                        className="btn btn-primary w-100"
+                                        disabled={isSubmitting}
+                                    >
+                                        {isSubmitting ? (
+                                            <>
+                                                <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                                                Submitting...
+                                            </>
+                                        ) : 'Submit'}
+                                    </button>
+                                </form>
+                            )}
+                        </div>
                     </div>
-                ) : (
-                    <form onSubmit={handleSubmit}>
-                        <div className="form-group">
-                            <input
-                                type="url"
-                                name="postUrl"
-                                className="form-control"
-                                placeholder="Enter your submission URL"
-                                value={participationData.postUrl}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
-                        <div className="form-group my-2">
-                            <input
-                                type="text"
-                                name="productUniqueCode"
-                                className="form-control"
-                                placeholder="Enter your Product Unique Code"
-                                value={participationData.productUniqueCode}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
-                        <button
-                            type="submit"
-                            className="btn btn-warning text-white w-100 mt-2"
-                            disabled={isSubmitting}
-                        >
-                            {isSubmitting ? 'Submitting...' : 'Submit'}
-                        </button>
-                    </form>
-                )}
+                </div>
             </div>
         </div>
     );

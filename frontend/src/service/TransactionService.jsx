@@ -20,3 +20,9 @@ export const creditMoney = (userId, data) => {
         .post(`/transaction/credit/${userId}`, data)
         .then((response) => response.data);
 };
+// http://localhost:8080/api/transaction/03d39505-c4ed-4cef-839e-7010ec4b2cb9/type/CREDIT
+export const getTransactionByUserIdAndType = (userId,type) => {
+    return privateAxios
+        .get(`/transaction/${userId}/type/${type}`)
+        .then((response) => response.data);
+};

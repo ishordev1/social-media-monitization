@@ -67,7 +67,7 @@ public class CampaignController {
     }
     
     // Get Campaign by ID
-    @GetMapping("/{userId}")
+    @GetMapping("/user/{userId}")
     public ResponseEntity<List<CampaignDto>> getCampaignByUserId(@PathVariable String userId) {
         List<CampaignDto> campaignList = campaignService.getCampaignByUserId(userId);
         return new ResponseEntity<List<CampaignDto>>(campaignList,HttpStatus.OK);

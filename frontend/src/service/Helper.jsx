@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getToken } from "../auth/Index";
+import { toast } from "react-toastify";
 
 export const BASE_URL = 'http://localhost:8080';
 export const PRIVATE_URL = 'http://localhost:8080/api';
@@ -23,3 +24,16 @@ privateAxios.interceptors.request.use(
         }
         return config;
     }, error => Promise.reject(error))
+
+
+    privateAxios.interceptors.response.use(
+    response => response,
+    error => {
+        if (error.response?.status === 401) {
+            const errorMessage = error.response?.data?.message || "Unauthorized access";
+            toast.error(errorMessage); 
+            localStorage.removeItem("data");
+            window.location.href = "/signin";
+        }
+        return Promise.reject(error); }
+);

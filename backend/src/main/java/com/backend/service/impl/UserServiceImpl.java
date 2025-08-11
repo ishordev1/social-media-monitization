@@ -1,5 +1,6 @@
 package com.backend.service.impl;
 
+import java.lang.annotation.Annotation;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -10,13 +11,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.backend.dto.TransactionDto;
 import com.backend.dto.UserDto;
 import com.backend.exception.ResourceNotFoundException;
 import com.backend.models.Role;
 import com.backend.models.User;
 import com.backend.models.UserStatus;
 import com.backend.repository.UserRepository;
+import com.backend.service.TransactionService;
 import com.backend.service.UserService;
+
+import jakarta.annotation.Resource;
+import jakarta.annotation.Resource.AuthenticationType;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -28,6 +34,8 @@ public class UserServiceImpl implements UserService {
 	private UserRepository userRepository;
 	@Autowired
 	private PasswordEncoder passeEncoder;
+	@Autowired 
+	private TransactionService transactionService;
 
 	// Create User
 	@Override
@@ -48,7 +56,13 @@ public class UserServiceImpl implements UserService {
 		userDto.setJoinDate(new Date());
 		User user = this.modelMapper.map(userDto, User.class);
 		User savedUser = this.userRepository.save(user);
-
+		if(savedUser.getRole().equals(Role.BRAND)) {
+			TransactionDto transaction=new TransactionDto();
+			transaction.setAmount(0.0);
+			transaction.setBank("SMM");
+			transaction.setPaymentMode("UPI");
+			this.transactionService.addMoney(transaction, savedUser.getUserId());
+		}
 		return this.modelMapper.map(savedUser, UserDto.class);
 	}
 
@@ -94,4 +108,21 @@ public class UserServiceImpl implements UserService {
 
 		return this.modelMapper.map(user, UserDto.class);
 	}
+
+	@Override
+	public List<UserDto> getAllUserByRole(String role) {
+		Role r=null;
+		if(role.equalsIgnoreCase("BRAND")) {
+			r=Role.BRAND;
+		}
+		else if(role.equalsIgnoreCase("ADMIN")) {
+			r=Role.ADMIN;
+		}
+		else {
+			r=Role.CUSTOMER;
+		}
+		List<User> users=this.userRepository.findByRole(r).orElseThrow(()-> new ResourceNotFoundException("Brand not Available."));
+		return users.stream().map(user-> this.modelMapper.map(user, UserDto.class)).collect(Collectors.toList());
+	}
+
 }

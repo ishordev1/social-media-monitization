@@ -15,7 +15,7 @@ const BrandHome = () => {
               <NavLink to='/brand/home/loadmoney' className="nav-link" >Load money</NavLink>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/brand/campaign">Campaing</a>
+              <NavLink to='/brand/home/allcampaign' className="nav-link" >Campaing</NavLink>
             </li>
 
             <li className="nav-item">

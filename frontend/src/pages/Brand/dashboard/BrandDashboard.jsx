@@ -19,7 +19,7 @@ const BrandDashboard = () => {
                 })
                 .catch((error) => {
                     console.error(error);
-                    setError(" Balance Rs:0.00");
+                    setError(" error");
                 })
 
         }
@@ -28,7 +28,7 @@ const BrandDashboard = () => {
     if (!balanceData) {
         return (
             <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
-                <div className="alert alert-info">No balance information available</div>
+                <div className="alert alert-info">Balance Rs: 0.00</div>
             </div>
         );
     }
@@ -36,6 +36,86 @@ const BrandDashboard = () => {
 
 
     return (
+<>
+
+ <div className="container mt-4">
+      {/* Header */}
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h3 className="fw-bold">Dashboard</h3>
+        <div className="d-flex">
+
+          <button className="btn btn-primary me-2 d-flex align-items-center">
+      <i className="fas fa-plus me-1"></i> Money
+    </button>
+         
+        </div>
+      </div>
+
+      {/* Cards Row */}
+      <div className="row g-3">
+        {/* Total Campaigns */}
+        <div className="col-md-3">
+          <div className="card shadow-sm border-0 p-3">
+            <div className="d-flex justify-content-between align-items-center">
+              <div>
+                <small className="text-muted">Total Campaigns</small>
+                <h4 className="fw-bold">6</h4>
+              </div>
+              <div className="bg-primary bg-opacity-10 p-3 rounded-circle">
+                <i className="fas fa-bullhorn text-primary"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Total Funds */}
+        <div className="col-md-3">
+          <div className="card shadow-sm border-0 p-3">
+            <div className="d-flex justify-content-between align-items-center">
+              <div>
+                <small className="text-muted">Total Funds</small>
+                <h4 className="fw-bold text-success">$102,000</h4>
+              </div>
+              <div className="bg-success bg-opacity-10 p-3 rounded-circle">
+                <i className="fas fa-money-bill text-success"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Distributed */}
+        <div className="col-md-3">
+          <div className="card shadow-sm border-0 p-3">
+            <div className="d-flex justify-content-between align-items-center">
+              <div>
+                <small className="text-muted">Distributed</small>
+                <h4 className="fw-bold text-purple">$59,950</h4>
+              </div>
+              <div className="bg-primary bg-opacity-10 p-3 rounded-circle">
+                <i className="fas fa-hand-holding-usd text-primary"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Total Users */}
+        <div className="col-md-3">
+          <div className="card shadow-sm border-0 p-3">
+            <div className="d-flex justify-content-between align-items-center">
+              <div>
+                <small className="text-muted">Total Users</small>
+                <h4 className="fw-bold text-warning">1,465</h4>
+              </div>
+              <div className="bg-warning bg-opacity-10 p-3 rounded-circle">
+                <i className="fas fa-users text-warning"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+        
         <div className="container py-5">
             <div className="row justify-content-center">
                 <div className="col-md-8 col-lg-6">
@@ -111,6 +191,7 @@ const BrandDashboard = () => {
                 </div>
             </div>
         </div>
+        </>
     );
 };
 

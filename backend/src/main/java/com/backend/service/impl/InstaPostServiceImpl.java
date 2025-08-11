@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.backend.dto.CampaignDto;
 import com.backend.dto.InstaPostDto;
 import com.backend.dto.TransactionDto;
+import com.backend.exception.AlreadyExistException;
 import com.backend.exception.ResourceNotFoundException;
 import com.backend.models.CAMPAIGNSTATUS;
 import com.backend.models.Campaign;
@@ -38,24 +39,34 @@ public class InstaPostServiceImpl implements InstaPostService {
 	private final ModelMapper modelMapper;
 
 	private final TransactionService transactionService;
-
 	@Override
 	public InstaPostDto createInstaPost(String userId, String campaignId, InstaPostDto instaPostDto) {
+		if(this.instaPostRepository.findByPostUrl(instaPostDto.getPostUrl()).isPresent()) {
+			throw new AlreadyExistException("this post is already exist...");
+		}
+		
+		if(this.instaPostRepository.findByProductUniqueCode(instaPostDto.getProductUniqueCode()).isPresent()) {
+			throw new AlreadyExistException("this uniqueCode  is already exist...");
+		}
+		
+		
 		User user = userRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
 
+		
 		CampaignDto campaignDto = this.campaignService.getCampaignById(campaignId);
 		Campaign campaign = this.modelMapper.map(campaignDto, Campaign.class);
-	
 		
 		InstaPost instaPost = modelMapper.map(instaPostDto, InstaPost.class);
 		// base on userInstaScore amount will give check
 		if (campaign.getRemainingAmount() < 0) {
 			campaignDto.setStatus(CAMPAIGNSTATUS.CLOSE);
 			this.campaignService.updateCampaign(campaignId, campaignDto);
-			throw new ResourceNotFoundException("insuffent balance in campaign. better luck next time.");
+			throw new AlreadyExistException("insuffent balance in campaign. better luck next time.");
 
 		}
+		
+		
 		instaPost.setInstaPostId(UUID.randomUUID().toString());
 		instaPost.setUser(user);
 		instaPost.setCampaign(campaign);
@@ -65,6 +76,10 @@ public class InstaPostServiceImpl implements InstaPostService {
 		double userScoreAmount = 200.0;
 		instaPost.setCashback(userScoreAmount);
 		InstaPost savedPost = instaPostRepository.save(instaPost);
+		
+		
+		
+		
 		// reduce campaign balance
 		campaignDto.setDistributeAmount(campaignDto.getDistributeAmount() + userScoreAmount);
 
@@ -74,12 +89,14 @@ public class InstaPostServiceImpl implements InstaPostService {
 			campaignDto.setStatus(CAMPAIGNSTATUS.CLOSE);
 		}
 		
+		
 		this.campaignService.updateCampaign(campaignId, campaignDto);
 
 
 		return modelMapper.map(savedPost, InstaPostDto.class);
 	}
 
+	
 	@Override
 	public InstaPostDto updateInstaPost(String userId, String campaignId, String instaPostId,
 			InstaPostDto instaPostDto) {
@@ -147,7 +164,7 @@ public class InstaPostServiceImpl implements InstaPostService {
 			campaignDto.setDistributeAmount(campaignDto.getDistributeAmount()-instaPost.getCashback());
 			this.campaignService.updateCampaign(campaignDto.getCampaignId(), campaignDto); 
 		}
-		else if(status.toString().equalsIgnoreCase("ACCEPTED")) {
+		else {
 			// after approval also transfer balance in user Account
 			TransactionDto creditTransactionDetails = new TransactionDto();
 			creditTransactionDetails.setAmount(instaPost.getCashback());

@@ -71,6 +71,16 @@ public class UserController {
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 	
+	
+	@GetMapping("/role/{role}")
+	public ResponseEntity<List<UserDto>> getUserByRole(@PathVariable String role) {
+		
+		List<UserDto> users = this.userService.getAllUserByRole(role);
+		return new ResponseEntity<>(users, HttpStatus.OK);
+	}
+	
+	
+	
 	@Operation(summary="insta userId")
 	 @GetMapping("/insta/{username}")
 	    public ResponseEntity<Map> getInstagramUser(@PathVariable String username) {

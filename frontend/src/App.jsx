@@ -22,6 +22,12 @@ import BrandCampaign from './pages/Brand/campaing/BrandCampaign'
 import ReviewPost from './pages/Admin/ReviewPost/ReviewPost'
 import Dashboard from './pages/Admin/Dashboard'
 import Profile from './pages/User/Profile'
+import ShowCamppaignByBrand from './pages/User/ShowCampaignByBrand'
+import AllCampaign from './pages/Brand/AllCampaign'
+import ShowCampaignDetails from './pages/Brand/ShowCampaignDetails'
+import ShowUser from './pages/Admin/ShowUser'
+import ShowBrands from './pages/Admin/ShowBrands'
+
 
 
 
@@ -44,6 +50,7 @@ function App() {
           <Route path='campaign' element={<Campaign />} />
           <Route path='cashback' element={<Cashback />} />
           <Route path='profile' element={<Profile />} />
+          <Route path='brand/:brandId' element={<ShowCamppaignByBrand />} />
         </Route>
         {/* user route end */}
 
@@ -52,10 +59,10 @@ function App() {
           <Route path='home' element={<AdminHome />} >
             {/* here dashboard */}
             <Route path='dashboard' element={<Dashboard />} />
-
+            <Route path='review-post' element={<ReviewPost />} />
+            <Route path="user" element={<ShowUser/>}/>
+            <Route path="brand" element={<ShowBrands />} />
           </Route>
-
-          <Route path='accept-url' element={<ReviewPost />} />
         </Route>
 
         {/* admin route end */}
@@ -65,9 +72,11 @@ function App() {
           <Route path='home' element={<BrandHome />} >
             <Route path='dashboard' element={<BrandDashboard />} />
             <Route path="loadmoney" element={<LoadMoney />} />
+            <Route path="allcampaign" element={<AllCampaign />} />
+            <Route path="campaign/view/:campaignId" element={<ShowCampaignDetails />} />
 
+            <Route path='addcampaign' element={<BrandCampaign />} />
           </Route>
-          <Route path='campaing' element={<BrandCampaign />} />
 
         </Route>
         {/* brand route end */}

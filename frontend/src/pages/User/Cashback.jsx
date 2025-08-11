@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getAllTransaction } from '../../service/TransactionService';
+import { getAllTransaction, getTransactionByUserId, getTransactionByUserIdAndType } from '../../service/TransactionService';
 import { toast } from 'react-toastify';
 import { getCurrentUserDetails } from '../../auth/Index';
 import './css/Cashback.css';
@@ -14,7 +14,7 @@ const Cashback = () => {
         setUser(currentUser);
 
         if (currentUser) {
-            getAllTransaction()
+            getTransactionByUserId(currentUser.userId)
                 .then((response) => {
                     if (response && Array.isArray(response)) {
                         setTransactions(response);

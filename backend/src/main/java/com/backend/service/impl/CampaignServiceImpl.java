@@ -103,15 +103,29 @@ public class CampaignServiceImpl implements CampaignService {
 			throw new ResourceNotFoundException("User is not authorized to delete this campaign");
 		}
 
-		// Check agar InstaPosts hai to hi NULL set kare
-		if (campaign.getPosts() != null && !campaign.getPosts().isEmpty()) {
-			for (InstaPost post : campaign.getPosts()) {
-				post.setCampaign(null);
-			}
-			instaPostRepository.saveAll(campaign.getPosts()); // Update InstaPost
-		}
+//		// Check agar InstaPosts hai to hi NULL set kare
+//		if (campaign.getPosts() != null && !campaign.getPosts().isEmpty()) {
+//			for (InstaPost post : campaign.getPosts()) {
+//				post.setCampaign(null);
+//			}
+//			instaPostRepository.saveAll(campaign.getPosts()); // Update InstaPost
+//		}
 
 		// Ab campaign delete kar sakte ho
+		
+	Double amount=	campaign.getRemainingAmount();
+	
+		if (campaign.getPosts() != null && !campaign.getPosts().isEmpty()) {
+		    for (var post : campaign.getPosts()) {
+		        amount += post.getCashback();
+		    }
+		}
+		
+		TransactionDto transaction=new TransactionDto();
+		transaction.setAmount(amount);
+		transaction.setBank("SMM");
+		transaction.setPaymentMode("online");
+		this.transactionService.addMoney(transaction, campaign.getUser().getUserId());
 		campaignRepository.delete(campaign);
 
 		return true;

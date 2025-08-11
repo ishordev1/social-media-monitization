@@ -1,75 +1,75 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { getCampaignsByBrandId } from '../service/CampaignService';
+import { toast } from 'react-toastify';
 const BrandCard = ({ brand }) => {
     const navigate = useNavigate();
+    const [campaigns, setCampaigns] = useState([]);
+
+    useEffect(() => {
+            getCampaignsByBrandId(brand.userId)
+                .then((response) => {
+                    setCampaigns(response);
+                    // console.log("data" + response.data);
+                    // toast.success('Campaigns fetched successfully!');
+    
+                })
+                .catch((error) => {
+                    toast.error('Error fetching campaigns: ' + error.message);
+                });
+        }, []);
 
     const handleClick = () => {
-        navigate(`/brands/${brand.id}`);
+        navigate(`/customer/brand/${brand.userId}`);
     };
+console.log(campaigns);
 
     return (
         <div
-            onClick={handleClick}
-            className="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl cursor-pointer"
+            className="card mb-4 shadow-sm cursor-pointer m-3"
+            style={{ width: '18rem' }}
         >
-            <div className="relative h-48 overflow-hidden">
+            {/* Image Section */}
+            <div className="position-relative" style={{ height: '200px', overflow: 'hidden' }}>
                 <img
-                    src={brand.imageUrl || 'https://via.placeholder.com/400x300'}
+                    src={'https://1000logos.net/wp-content/uploads/2022/10/Lenskart-Logo.png'}
+                    className=" card-img-top  object-fit-cover"
                     alt={brand.name}
-                    className="w-full h-full object-cover"
+                    style={{ objectFit: 'cover' }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                <div className="absolute bottom-4 left-4">
-                    <span className="bg-indigo-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
-                        {brand.category || 'Fashion'}
+                <div className="position-absolute top-0 start-0 w-100 h-100"
+                    style={{
+                        background: 'linear-gradient(to top, rgba(0,0,0,0.6), transparent)',
+                    }}
+                ></div>
+
+            </div>
+
+            {/* Card Body */}
+            <div className="card-body">
+                <div className="d-flex align-items-center">
+                    <h5 className="card-title mb-0">{brand.name}</h5>
+
+                    <span className="text-muted ms-auto ">
+                        <i className="fas fa-users me-1"></i>
+                        {brand.email || 'brand@gmail.com'} 
                     </span>
                 </div>
+
+
             </div>
 
-            <div className="p-6">
-                <div className="flex items-center mb-3">
-                    <img
-                        src={brand.logoUrl || 'https://via.placeholder.com/50'}
-                        alt={`${brand.name} logo`}
-                        className="w-10 h-10 rounded-full object-cover mr-3 border-2 border-white shadow-sm"
-                    />
-                    <h3 className="text-xl font-bold text-gray-800">{brand.name}</h3>
-                </div>
-
-                <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-                    {brand.description || 'No description available'}
-                </p>
-
-                <div className="flex justify-between items-center">
-                    <div>
-                        <span className="text-xs text-gray-500">Campaign Budget</span>
-                        <p className="font-semibold text-indigo-700">
-                            ${brand.budget?.toLocaleString() || '5,000'}
-                        </p>
-                    </div>
-                    <div className="text-right">
-                        <span className="text-xs text-gray-500">Cashback Rate</span>
-                        <p className="font-semibold text-green-600">
-                            {brand.cashbackRate || '15'}%
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div className="px-6 py-3 bg-gray-50 border-t border-gray-100 flex justify-between items-center">
-                <span className="text-xs text-gray-500">
-                    <i className="fas fa-users mr-1"></i>
-                    {brand.influencersCount || '120'} influencers
+            {/* Footer */}
+            <div className="card-footer bg-light d-flex justify-content-between align-items-center">
+                <span className="text-muted small">
+                    <i className="fas fa-users me-1"></i>
+                    {campaigns.length || '120'} Campaign
                 </span>
                 <button
-                    className="text-xs font-medium text-indigo-600 hover:text-indigo-800 transition-colors"
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        // Handle quick apply logic here
-                    }}
+                    className="btn btn-link btn-sm text-primary p-0"
+                    onClick={handleClick}
                 >
-                    Quick Apply <i className="fas fa-arrow-right ml-1"></i>
+                    Quick Apply <i className="fas fa-arrow-right ms-1"></i>
                 </button>
             </div>
         </div>

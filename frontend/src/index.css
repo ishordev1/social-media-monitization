@@ -73,3 +73,60 @@
   color: #fff;
   background: rgb(9, 95, 234);
 }
+
+
+/* admin userList */
+/* Add these styles to your CSS file */
+.card-header-gradient {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.btn-gradient {
+  background: linear-gradient(to right, #667eea, #764ba2);
+  color: white;
+  border: none;
+}
+
+.btn-gradient:hover {
+  background: linear-gradient(to right, #764ba2, #667eea);
+  color: white;
+}
+
+.text-gradient {
+  background: linear-gradient(to right, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+}
+
+.hover-effect {
+  transition: all 0.3s ease;
+  transform: translateY(0);
+}
+
+.hover-effect:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.user-details .detail-item {
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.user-details .detail-item:last-child {
+  border-bottom: none;
+}
+
+.bg-warning-light {
+  background-color: rgba(255,193,7,0.1);
+}
+
+.bg-success-light {
+  background-color: rgba(40,167,69,0.1);
+}
+
+.bg-danger-light {
+  background-color: rgba(220,53,69,0.1);
+}
