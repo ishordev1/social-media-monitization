@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import BrandCard from '../../component/BrandCard'
-import { getUserByRole } from '../../service/UserService';
+import {  getUserByRoleAndStatus } from '../../service/UserService';
 import { toast } from 'react-toastify';
 
 const UserHome = () => {
   const [brands,setBrands]=useState([]);
 useEffect(()=>{
-getUserByRole("brand").then((res)=>{
+getUserByRoleAndStatus("brand","all").then((res)=>{
   setBrands(res);
   // console.log("data" + JSON.stringify(brands));
   // toast.success('Brands fetched successfully!');

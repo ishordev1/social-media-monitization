@@ -35,3 +35,130 @@
         padding: 1rem !important;
     }
 }
+
+/* neew css */
+/* Header gradient — Option A (cool neutrals + refined blue) */
+.bg-gradient-primary {
+  background: linear-gradient(90deg, #1f2937, #0f172a); /* slate to navy */
+}
+
+/* Stat card hover remains */
+.stat-card {
+  transition: transform 0.2s ease-in-out;
+}
+.stat-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Glassmorphism card with toned-down whites for better contrast */
+.balance-glass {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  background: rgba(89, 0, 116, 0.6);          /* slate-900 with transparency */
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(148, 163, 184, 0.25); /* slate-400 border */
+  box-shadow: 0 30px 60px rgba(2, 6, 23, 0.45); /* darker shadow */
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.balance-glass:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 40px 80px rgba(2, 6, 23, 0.55);
+}
+
+/* KPI tiles: more neutral background */
+.kpi-tile {
+  border-radius: 12px;
+  padding: 12px 14px;
+  background: linear-gradient(135deg, rgb(203, 182, 252), rgba(216, 168, 168, 0.35));
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.kpi-tile:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(2, 6, 23, 0.35);
+}
+
+/* Numbers */
+.kpi-value {
+  font-weight: 800;
+  font-size: 1.15rem;
+  letter-spacing: 0.3px;
+}
+
+/* Icons circle — Option A accents */
+.kpi-icon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: #0b1220;
+}
+.kpi-total .kpi-icon {
+  background: linear-gradient(135deg, #60a5fa, #2563eb); /* blue */
+}
+.kpi-spent .kpi-icon {
+  background: linear-gradient(135deg, #fca5a5, #ef4444); /* red */
+}
+.kpi-available .kpi-icon {
+  background: linear-gradient(135deg, #6ee7b7, #10b981); /* green */
+}
+
+/* Glass button */
+.glass-btn {
+  background: rgba(226, 232, 240, 0.9); /* slate-200 */
+  color: #0b1220;
+  border: 1px solid rgba(203, 213, 225, 0.8);
+}
+.glass-btn:hover {
+  background: #e2e8f0;
+}
+
+/* Thin top border */
+.border-white-10 {
+  border-color: rgba(148, 163, 184, 0.25) !important; /* slate-400 at 25% */
+}
+
+/* Chips */
+.chip {
+  background: rgba(30, 41, 59, 0.5);   /* slate-800 translucent */
+  color: #e5e7eb;                      /* gray-200 */
+  border: 1px solid rgba(148, 163, 184, 0.25);
+}
+.chip-outline {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Text adjustments for glass section */
+.balance-glass .text-white-50 { color: rgba(226, 232, 240, 0.7) !important; } /* slate-200 at 70% */
+.balance-glass .text-white { color: #f8fafc !important; } /* slate-50 */
+
+/* Fallback for browsers without backdrop-filter */
+@supports not ((backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px))) {
+  .balance-glass {
+    background: #111827; /* solid slate-900 */
+  }
+}
+
+
+.bg-gradient-primary {
+  background: linear-gradient(90deg, #0f172a, #111827);
+}
+.kpi-total .kpi-icon {
+  background: linear-gradient(135deg, #5eead4, #2dd4bf);
+}
+.kpi-spent .kpi-icon {
+  background: linear-gradient(135deg, #fca5a5, #f87171);
+}
+.kpi-available .kpi-icon {
+  background: linear-gradient(135deg, #86efac, #22c55e);
+}
+.glass-btn {
+  background: rgba(241, 245, 249, 0.9);
+  color: #0b1220;
+  border: 1px solid rgba(203, 213, 225, 0.8);
+}
+

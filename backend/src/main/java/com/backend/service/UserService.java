@@ -11,5 +11,6 @@ public UserDto updateUser(String email,UserDto userDto);
 public Boolean deleteUser(String userId);
 public List<UserDto> getAllUser();
 public UserDto getUserByEmail(String email);
-public List<UserDto> getAllUserByRole(String role);
+public List<UserDto> getAllUserByRoleAndStatus(String role,String status);
+public List<UserDto> searchUserByRoleAndName(String role,String name);
 }

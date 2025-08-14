@@ -73,12 +73,22 @@ public class UserController {
 	
 	
 	@GetMapping("/role/{role}")
-	public ResponseEntity<List<UserDto>> getUserByRole(@PathVariable String role) {
+	public ResponseEntity<List<UserDto>> getUserByRole(
+			@PathVariable String role,
+			@RequestParam(name="status",defaultValue = "all") String status) {
 		
-		List<UserDto> users = this.userService.getAllUserByRole(role);
+		List<UserDto> users = this.userService.getAllUserByRoleAndStatus(role,status);
 		return new ResponseEntity<>(users, HttpStatus.OK);
 	}
 	
+	@GetMapping("/search/role/{role}")
+	public ResponseEntity<List<UserDto>> searchUserByRoleAndName(
+			@PathVariable String role,
+			@RequestParam(name="name") String name) {
+		
+		List<UserDto> users = this.userService.searchUserByRoleAndName(role,name);
+		return new ResponseEntity<>(users, HttpStatus.OK);
+	}
 	
 	
 	@Operation(summary="insta userId")

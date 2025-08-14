@@ -110,19 +110,30 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<UserDto> getAllUserByRole(String role) {
-		Role r=null;
-		if(role.equalsIgnoreCase("BRAND")) {
-			r=Role.BRAND;
+	public List<UserDto> getAllUserByRoleAndStatus(String role,String status) {
+	
+		Role r=Role.valueOf(role.toUpperCase());
+
+	List<User> users=null;
+	
+		if(!status.equalsIgnoreCase("All")) {
+			UserStatus userStatus=UserStatus.valueOf(status.toUpperCase());
+			users=this.userRepository.findByRoleAndStatus(r,userStatus).orElseThrow(()-> new ResourceNotFoundException("user not Available."));
 		}
-		else if(role.equalsIgnoreCase("ADMIN")) {
-			r=Role.ADMIN;
+		else {			
+			users=this.userRepository.findByRole(r).orElseThrow(()-> new ResourceNotFoundException("user not Available."));
 		}
-		else {
-			r=Role.CUSTOMER;
-		}
-		List<User> users=this.userRepository.findByRole(r).orElseThrow(()-> new ResourceNotFoundException("Brand not Available."));
+		
 		return users.stream().map(user-> this.modelMapper.map(user, UserDto.class)).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<UserDto> searchUserByRoleAndName(String role, String name) {
+	Role r=Role.valueOf(role.toUpperCase());
+	List<User> users=this.userRepository.findByRoleAndNameContaining(r, name).orElseThrow(()-> new ResourceNotFoundException("user not found"));
+		
+	
+	return users.stream().map((user)->this.modelMapper.map(user, UserDto.class)).collect(Collectors.toList());
 	}
 
 }

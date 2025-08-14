@@ -19,6 +19,7 @@ import com.backend.models.Campaign;
 import com.backend.models.INSTAPOSTSTATUS;
 import com.backend.models.InstaPost;
 import com.backend.models.User;
+import com.backend.models.UserStatus;
 import com.backend.repository.CampaignRepository;
 import com.backend.repository.InstaPostRepository;
 import com.backend.repository.UserRepository;
@@ -41,6 +42,7 @@ public class InstaPostServiceImpl implements InstaPostService {
 	private final TransactionService transactionService;
 	@Override
 	public InstaPostDto createInstaPost(String userId, String campaignId, InstaPostDto instaPostDto) {
+	
 		if(this.instaPostRepository.findByPostUrl(instaPostDto.getPostUrl()).isPresent()) {
 			throw new AlreadyExistException("this post is already exist...");
 		}
@@ -52,7 +54,9 @@ public class InstaPostServiceImpl implements InstaPostService {
 		
 		User user = userRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
-
+if(user.getStatus()!=UserStatus.VERIFY) {
+	throw new  AlreadyExistException("You are not vefify User,. Wait for someDay..");
+}
 		
 		CampaignDto campaignDto = this.campaignService.getCampaignById(campaignId);
 		Campaign campaign = this.modelMapper.map(campaignDto, Campaign.class);

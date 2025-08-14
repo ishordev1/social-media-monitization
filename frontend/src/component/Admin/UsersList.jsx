@@ -1,18 +1,22 @@
 import React from 'react';
+import { updateUser } from '../../service/UserService';
+import { toast } from 'react-toastify';
 
-const UsersList = ({ users }) => {
-  const handleStatusChange = (userId, newStatus) => {
- const userToUpdate = users.find(user => user.userId === userId);
-  // Create updated user object with new status
-  const updatedUser = {
-    ...userToUpdate,
-    status: newStatus
-  };
-  // console.log('Updated user object:', updatedUser);
-  
+const UsersList = ({ users, onStatusUpdate }) => {
+  const handleStatusChange = (email, newStatus) => {
+    const userToUpdate = users.find(user => user.email === email);
+    const updatedUser = { ...userToUpdate, status: newStatus };
 
-
-  
+    updateUser(email, updatedUser)
+      .then((response) => {
+        toast.success("User status updated successfully!");
+        // Update state in parent
+        onStatusUpdate(email, newStatus);
+      })
+      .catch((error) => {
+        console.error("Error updating user:", error);
+        toast.error("Failed to update user status.");
+      });
   };
 
   return (
@@ -26,7 +30,11 @@ const UsersList = ({ users }) => {
                 <div className="d-flex align-items-center">
                   <div className="position-relative">
                     <img 
-                      src={user.imgName !== 'defaultProfile.png' ? `/images/${user.imgName}` : 'https://ui-avatars.com/api/?name='+user.name+'&background=random'}
+                      src={
+                        user.imgName !== 'defaultProfile.png'
+                          ? `/images/${user.imgName}`
+                          : `https://ui-avatars.com/api/?name=${user.name}&background=random`
+                      }
                       alt={user.name} 
                       className="rounded-circle me-3 img-thumbnail shadow-sm"
                       width="70"
@@ -69,17 +77,16 @@ const UsersList = ({ users }) => {
                     <button 
                       className="btn btn-sm btn-gradient dropdown-toggle" 
                       type="button" 
-                      id="statusDropdown"
                       data-bs-toggle="dropdown" 
                       aria-expanded="false"
                     >
                       <i className="fas fa-cog me-1"></i> Update
                     </button>
-                    <ul className="dropdown-menu dropdown-menu-end shadow" aria-labelledby="statusDropdown">
+                    <ul className="dropdown-menu dropdown-menu-end shadow">
                       <li>
                         <button 
                           className="dropdown-item d-flex align-items-center" 
-                          onClick={() => handleStatusChange(user.userId, 'PENDING')}
+                          onClick={() => handleStatusChange(user.email, 'PENDING')}
                         >
                           <i className="fas fa-clock text-warning me-2"></i> PENDING
                         </button>
@@ -87,7 +94,7 @@ const UsersList = ({ users }) => {
                       <li>
                         <button 
                           className="dropdown-item d-flex align-items-center" 
-                          onClick={() => handleStatusChange(user.userId, 'VERIFY')}
+                          onClick={() => handleStatusChange(user.email, 'VERIFY')}
                         >
                           <i className="fas fa-check-circle text-success me-2"></i> VERIFY
                         </button>
@@ -95,7 +102,7 @@ const UsersList = ({ users }) => {
                       <li>
                         <button 
                           className="dropdown-item d-flex align-items-center" 
-                          onClick={() => handleStatusChange(user.userId, 'DISABLE')}
+                          onClick={() => handleStatusChange(user.email, 'DISABLE')}
                         >
                           <i className="fas fa-ban text-danger me-2"></i> DISABLE
                         </button>
@@ -112,7 +119,7 @@ const UsersList = ({ users }) => {
   );
 };
 
-// Helper functions
+// Helper functions (unchanged)
 const getStatusBadgeClass = (status) => {
   switch (status) {
     case 'PENDING': return 'bg-warning-light text-warning';
