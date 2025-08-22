@@ -1,0 +1,81 @@
+.dashboard-title {
+  font-weight: 700;
+  color: #fff; /* Changed to white for better contrast on bg-primary */
+}
+
+.dashboard-card {
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.total-card {
+  background: linear-gradient(135deg, #007bff 0%, #00c6ff 100%);
+}
+
+.total-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 123, 255, 0.4);
+}
+
+.pending-card {
+  background: linear-gradient(135deg, #ff9500 0%, #ffcc00 100%);
+}
+
+.pending-card:hover {
+  transform: rotate(3deg) scale(1.05);
+  box-shadow: 0 15px 30px rgba(255, 149, 0, 0.4);
+}
+
+.verified-card {
+  background: linear-gradient(135deg, #28a745 0%, #34d058 100%);
+}
+
+.verified-card:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 15px 30px rgba(40, 167, 69, 0.4);
+}
+
+.icon-wrapper {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.text-white-75 {
+  opacity: 0.75;
+}
+
+.fade-in {
+  animation: fadeIn 1s ease forwards;
+}
+
+.pulse-icon {
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+.bounce-in {
+  animation: bounceIn 1s ease forwards;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+@keyframes bounceIn {
+  0% { opacity: 0; transform: scale(0.3); }
+  50% { opacity: 1; transform: scale(1.05); }
+  70% { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}

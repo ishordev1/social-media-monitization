@@ -22,16 +22,14 @@ public class JwtHelper {
             "afafasfafafasfasfasfafacasdasfasxASFACASDFACASDFASFASFDAFASFASDAADSCSDFADCVSGCFVADXCcadwavfsfarvf"
                     .getBytes());
 
+
+
+
     // Retrieve username from JWT token
     public String getUsernameFromToken(String token) {
         return (String) getClaimFromToken(token, Claims.SUBJECT);
     }
-
-    // Retrieve expiration date from JWT token
-    public Date getExpirationDateFromToken(String token) {
-        return getAllClaimsFromToken(token).getExpiration();
-    }
-
+    
     // Retrieve any claim from token
     public Object getClaimFromToken(String token, String claimKey) {
         return getAllClaimsFromToken(token).get(claimKey);
@@ -44,6 +42,12 @@ public class JwtHelper {
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
+    }
+    
+
+    // Retrieve expiration date from JWT token
+    public Date getExpirationDateFromToken(String token) {
+        return getAllClaimsFromToken(token).getExpiration();
     }
 
     // Check if the token has expired
@@ -73,4 +77,39 @@ public class JwtHelper {
         final String username = getUsernameFromToken(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
+    
+    
+    
+    
+    
+    
+//    
+//    SecretKey testKey=Keys.hmacShaKeyFor("jljkkkljnkjnjbn bvhjhjoikijkjiukfdkhkjshgkhdskghfkhjg".getBytes());
+//    
+//    String generateTokenTest(UserDetails userDetails) {
+//    	return Jwts.builder().setSubject(userDetails.getUsername())
+//    			.setIssuedAt(new Date(System.currentTimeMillis()))
+//    			.setExpiration(new Date(System.currentTimeMillis()+5*60*50))
+//    			.signWith(secretKey, SignatureAlgorithm.HS512)
+//    			.compact();
+//    }
+//    
+//    String getNameFromToken(String token) {
+//    	return Jwts.parserBuilder().setSigningKey(secretKey).build()
+//    			.parseClaimsJws(token).getBody().getSubject();
+//    }
+//    
+//    boolean validateTokenTest(String token,UserDetails userDetails) {
+//    	if(getNameFromToken(token).equals(userDetails.getUsername())) {
+//    		if(Jwts.parserBuilder().setSigningKey(secretKey).build()
+//		.parseClaimsJws(token).getBody().getExpiration().before(new Date())) {
+//    			return true;
+//    		}
+//    	}
+//    	return false;
+//    }
+    
+    
+    
+    
 }

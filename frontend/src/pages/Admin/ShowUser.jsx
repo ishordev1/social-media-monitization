@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import UsersList from "../../component/Admin/UsersList";
 import { getUserByRoleAndStatus } from "../../service/UserService";
 import { searchUserByRoleAndName } from "../../service/UserService"; // Import your search API
-
+import AdminUserDashboard from "../../component/Admin/AdminUserDashboard/AdminUserDashboard";
 const ShowUser = () => {
   const [users, setUsers] = useState([]);
   const [filterStatus, setFilterStatus] = useState("All"); // default filter
@@ -67,6 +67,8 @@ const ShowUser = () => {
 
   return (
     <div className="container mt-4">
+<AdminUserDashboard/>
+
       <div className="d-flex justify-content-between align-items-center mb-2">
         <h3 className="fw-bold">All Customer</h3>
         <div className="d-flex">

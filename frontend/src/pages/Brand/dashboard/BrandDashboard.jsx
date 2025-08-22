@@ -2,35 +2,16 @@ import React, { useState, useEffect } from "react";
 import { balanceInfo } from "../../../service/BalanceInfo";
 import { getCurrentUserDetails } from "../../../auth/Index";
 import "./BrandDashboard.css";
+import BrandBalanceDashboard from "../../../component/Brand/BrandBalanceDashboard";
 
 const BrandDashboard = () => {
   const [currentUser, setCurrentUser] = useState(null);
-  const [balanceData, setBalanceData] = useState(null);
-  const [error, setError] = useState(null);
-
   useEffect(() => {
     const user = getCurrentUserDetails();
     setCurrentUser(user);
 
-    if (user) {
-      balanceInfo(user.userId)
-        .then((response) => {
-          setBalanceData(response);
-        })
-        .catch((error) => {
-          console.error(error);
-          setError("Error fetching balance");
-        });
-    }
   }, []);
 
-  if (!balanceData) {
-    return (
-      <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
-        <div className="alert alert-info">Balance Rs: 0.00</div>
-      </div>
-    );
-  }
 
   return (
     <>
@@ -55,82 +36,7 @@ const BrandDashboard = () => {
           />
         </div>
 
-       
-        {/* Unique Glassmorphism Balance Section */}
-        <div className=" balance-glass card border-0 shadow-lg">
-          <div className="card-body p-4">
-            {/* Top Row */}
-            <div className="d-flex justify-content-between align-items-center mb-3">
-              <div>
-                <h5 className="mb-1 text-white-50">Account Balance</h5>
-                <h2 className="fw-bold text-white mb-0">
-                  ${(balanceData.totalBalance).toFixed(2)}
-                </h2>
-              </div>
-              <button className="btn btn-light btn-sm rounded-pill px-3 glass-btn">
-                <i className="bi bi-wallet2 me-1"></i>Add Funds
-              </button>
-            </div>
-
-            {/* KPI Row */}
-            <div className="row g-3 mt-1">
-              <div className="col-12 col-md-4">
-                <div className="kpi-tile kpi-total d-flex align-items-center">
-                  <div className="kpi-icon me-2">
-                    <i className="bi bi-graph-up-arrow"></i>
-                  </div>
-                  <div className="kpi-text">
-                    <small className="text-white-50 d-block">Total</small>
-                    <span className="kpi-value text-danger">
-                      ${(balanceData.totalBalance).toFixed(2)}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-12 col-md-4">
-                <div className="kpi-tile kpi-spent d-flex align-items-center">
-                  <div className="kpi-icon me-2">
-                    <i className="bi bi-currency-exchange"></i>
-                  </div>
-                  <div className="kpi-text">
-                    <small className="text-white-50 d-block">Spent</small>
-                    <span className="kpi-value text-danger-emphasis">
-                      ${(balanceData.spendBalance).toFixed(2)}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-12 col-md-4">
-                <div className="kpi-tile kpi-available d-flex align-items-center">
-                  <div className="kpi-icon me-2">
-                    <i className="bi bi-cash-stack"></i>
-                  </div>
-                  <div className="kpi-text">
-                    <small className="text-white-50 d-block">Available</small>
-                    <span className="kpi-value text-success-emphasis">
-                      ${(balanceData.totalBalance - balanceData.spendBalance).toFixed(2)}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Footer */}
-            <div className="d-flex justify-content-between align-items-center mt-4 pt-2 border-top border-white-10">
-              <small className="text-white-50">
-                Last updated: {new Date().toLocaleString()}
-              </small>
-              <div className="d-flex gap-2">
-                <span className="badge rounded-pill chip chip-outline">Finance</span>
-                <span className="badge rounded-pill chip chip-outline">Live</span>
-              </div>
-            </div>
-          </div>
-       
-        </div>
- {/* Stats Row */}
+       <BrandBalanceDashboard/>
         <div className="row g-4 mt-1">
           <div className="col-md-3">
             <div className="card stat-card shadow-sm border-0">
@@ -152,8 +58,8 @@ const BrandDashboard = () => {
                   className="fas fa-money-bill text-success mb-2"
                   style={{ fontSize: "2rem" }}
                 ></i>
-                <h5 className="text-muted">Total Funds</h5>
-                <h4 className="fw-bold text-success">$102,000</h4>
+                <h5 className="text-muted">Active Campaign</h5>
+                <h4 className="fw-bold text-success">20</h4>
               </div>
             </div>
           </div>
@@ -165,8 +71,8 @@ const BrandDashboard = () => {
                   className="fas fa-hand-holding-usd text-primary mb-2"
                   style={{ fontSize: "2rem" }}
                 ></i>
-                <h5 className="text-muted">Distributed</h5>
-                <h4 className="fw-bold">$59,950</h4>
+                <h5 className="text-muted">Draft Campaign</h5>
+                <h4 className="fw-bold">50</h4>
               </div>
             </div>
           </div>

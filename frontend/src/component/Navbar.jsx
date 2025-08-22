@@ -73,7 +73,7 @@ const Navbar = () => {
                                 {login && role === "admin" && (
                                     <>
                                         <li className="nav-item">
-                                            <NavLink className="nav-link" to="/admin/home">Home</NavLink>
+                                            <NavLink className="nav-link" to="/admin/home/dashboard">Home</NavLink>
                                         </li>
                                         <li className="nav-item">
                                             <NavLink className="nav-link" to="/admin/home/review-post">Review Post</NavLink>

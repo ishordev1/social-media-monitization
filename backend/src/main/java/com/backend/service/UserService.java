@@ -7,7 +7,7 @@ import com.backend.models.Role;
 
 public interface UserService {
 public UserDto createUser(UserDto userDto);
-public UserDto updateUser(String email,UserDto userDto);
+public UserDto updateUser(String embail,UserDto userDto);
 public Boolean deleteUser(String userId);
 public List<UserDto> getAllUser();
 public UserDto getUserByEmail(String email);
