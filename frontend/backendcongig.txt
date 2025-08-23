@@ -1,0 +1,7 @@
+
+
+DB_URL=jdbc:postgresql://ep-winter-paper-admo8odx-pooler.c-2.us-east-1.aws.neon.tech:5432/neondb?sslmode=require
+DB_NAME=neondb_owner
+DB_PASSWORD=npg_Jyp6ndIDzX0k
+FRONTEND_URL=http://localhost:5173
+
