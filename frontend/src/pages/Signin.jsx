@@ -27,7 +27,7 @@ const Signin = () => {
         if (jwtTokenData.user.role === "CUSTOMER") {
           navigate('/customer/home');
         } else if (jwtTokenData.user.role === "ADMIN") {
-          navigate('/admin/home');
+          navigate('/admin/home/dashboard');
         }
         else {
           navigate('/brand/home/dashboard');

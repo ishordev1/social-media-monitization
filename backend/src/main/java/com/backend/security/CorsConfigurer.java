@@ -10,6 +10,7 @@ public class CorsConfigurer  implements WebMvcConfigurer{
 	private String url;
 	@Override
         public void addCorsMappings(CorsRegistry registry) {
+		System.out.println("Url:"+ url);
             registry.addMapping("/**")   //to all endpoint allow
                     .allowedOrigins(url)
                     .allowedMethods("*")
