@@ -3,7 +3,7 @@ import { getToken } from "../auth/Index";
 import { toast } from "react-toastify";
 
 export const BASE_URL = 'https://social-media-monitization.onrender.com';
-export const PRIVATE_URL = 'hhttps://social-media-monitization.onrender.com/api';
+export const PRIVATE_URL = 'https://social-media-monitization.onrender.com/api';
 
 export const myAxios = axios.create({
     baseURL: BASE_URL,
