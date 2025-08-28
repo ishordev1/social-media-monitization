@@ -1,16 +1,12 @@
 package com.backend.service;
+import org.springframework.web.multipart.MultipartFile;
 
-
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.springframework.web.multipart.MultipartFile;
-
 public interface FileService {
-public String fileUpload(MultipartFile file,String path) throws IOException;
-public String fileUpdate(String fileId,MultipartFile file,String path) throws IOException,FileNotFoundException;
-public void fileDelete(String fileName,String path) throws IOException,FileNotFoundException;
-public InputStream fileRead(String fileName,String path) throws IOException;
-
+    String saveFile(MultipartFile file, String path) throws IOException;
+    void deleteFile(String path, String fileName) throws IOException;
+    String updateFile(MultipartFile file, String path, String fileName) throws IOException;
+    InputStream readFile(String path, String fileName) throws IOException;
 }

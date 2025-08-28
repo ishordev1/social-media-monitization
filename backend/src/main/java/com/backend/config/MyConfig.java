@@ -1,4 +1,4 @@
-package com.backend.security;
+package com.backend.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -53,7 +53,10 @@ public class MyConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf(csrf -> csrf.disable())
-				.authorizeHttpRequests(auth -> auth.requestMatchers("/api/*").authenticated().anyRequest().permitAll())
+		.cors(cors-> {})
+				.authorizeHttpRequests(auth -> auth.requestMatchers("/api/users/proxy-image").permitAll()
+						.requestMatchers("/api/**").authenticated()
+						.anyRequest().permitAll())
 				.exceptionHandling(ex -> ex.authenticationEntryPoint(point))
 				.sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)

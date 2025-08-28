@@ -13,9 +13,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import com.backend.config.Request;
+import com.backend.config.Response;
 import com.backend.dto.UserDto;
-import com.backend.security.Request;
-import com.backend.security.Response;
 import com.backend.service.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,6 +30,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
+	
 	// Create User (Signup)
 	@Operation(summary="signup user")
 	@PostMapping

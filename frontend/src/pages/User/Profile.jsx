@@ -4,6 +4,7 @@ import { getCurrentUserDetails } from '../../auth/Index';
 import { getUserScore } from '../../service/UserService';
 import { toast } from 'react-toastify';
 import './css/Profile.css';
+import {PRIVATE_URL} from '../../service/Helper'
 
 const Profile = () => {
     const [userData, setUserData] = useState({
@@ -127,7 +128,7 @@ const Profile = () => {
             <div className="profile-header">
                 <div className="profile-main">
                     <img
-                        src={`http://localhost:8080/api/users/proxy-image?url=${encodeURIComponent(userData.profilePic)}`}
+                        src={`${PRIVATE_URL}/users/proxy-image?url=${encodeURIComponent(userData.profilePic)}`}
                         alt="Profile Picture"
                         className="rounded-circle mb-3"
                         style={{ width: "150px", height: "150px", objectFit: "cover" }}
@@ -236,7 +237,7 @@ const Profile = () => {
                                     {/* <img src={post.thumbnail} alt={`Post ${index}`} /> */}
                                     <img
 
-                                        src={`http://localhost:8080/api/users/proxy-image?url=${encodeURIComponent(post.thumbnail)}`}
+                                        src={`${PRIVATE_URL}/users/proxy-image?url=${encodeURIComponent(post.thumbnail)}`}
                                         alt="Post Thumbnail"
                                         style={{ objectFit: "cover", height: "200px", width: "100%" }}
                                         onError={(e) => e.target.src = "https://randomuser.me/api/portraits/men/32.jpg"}

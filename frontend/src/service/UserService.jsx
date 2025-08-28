@@ -47,3 +47,13 @@ export const getUserScore = (instaUserName) => {
 
 
 
+export const uploadProfileImage = (file) => {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    return privateAxios
+        .post("/users/profileupload", formData, {
+            headers: { "Content-Type": "multipart/form-data" },
+        })
+        .then((response) => response.data); // backend se URL return hoga
+};
