@@ -18,7 +18,7 @@ const BrandHome = () => {
               <NavLink to='/brand/home/allcampaign' className="nav-link" >Campaing</NavLink>
             </li>
 
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <a className="nav-link " >Analysic</a>
             </li>
             <li className="nav-item">
@@ -26,7 +26,7 @@ const BrandHome = () => {
             </li>
             <li className="nav-item">
               <a className="nav-link " >Setting</a>
-            </li>
+            </li> */}
           </ul>
 
         </div>

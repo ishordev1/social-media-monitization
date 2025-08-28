@@ -21,7 +21,7 @@ public class FileServiceImp implements FileService {
     @Value("${cloudinary.cloud_name}")
     private String cloudName;
 
-    // ✅ Upload File
+    
     @Override
     public String saveFile(MultipartFile file, String path) throws IOException {
         String orgName = file.getOriginalFilename();
@@ -41,20 +41,20 @@ public class FileServiceImp implements FileService {
         return uploadResult.get("public_id").toString();
     }
 
-    // ✅ Delete File
+    
     @Override
     public void deleteFile(String path, String publicId) throws IOException {
         cloudnary.uploader().destroy(publicId, Map.of());
     }
 
-    // ✅ Update File
+   
     @Override
     public String updateFile(MultipartFile file, String path, String oldPublicId) throws IOException {
         deleteFile(path, oldPublicId);
         return saveFile(file, path);
     }
 
-    // ✅ Read File
+ 
     @Override
     public InputStream readFile(String path, String publicId) throws IOException {
         try {
@@ -65,7 +65,7 @@ public class FileServiceImp implements FileService {
         }
     }
 
-    // ✅ Generate Public URL
+ 
     public String getFileUrl(String publicId) {
         return "https://res.cloudinary.com/" + cloudName + "/image/upload/" + publicId;
     }

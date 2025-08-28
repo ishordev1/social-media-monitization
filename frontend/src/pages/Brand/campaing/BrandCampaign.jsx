@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { createCampaign } from '../../../service/CampaignService';
+import { createCampaign, uploadCampaignImage } from '../../../service/CampaignService';
 import { getCurrentUserDetails } from '../../../auth/Index';
 import { toast } from 'react-toastify';
 import JoditEditor from 'jodit-react';
@@ -11,6 +11,8 @@ const BrandCampaign = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [previewImage, setPreviewImage] = useState(null);
+    const [imageFile, setImageFile] = useState(null); // <-- Separate variable for image file
+
     const [balanceInfoData, setBalanceInfoData] = useState({
         totalBalance: 0,
         spendBalance: 0
@@ -21,7 +23,7 @@ const BrandCampaign = () => {
         title: "",
         amount: "",
         description: "",
-        image: null
+        image: ""
     });
 
     useEffect(() => {
@@ -53,16 +55,11 @@ const BrandCampaign = () => {
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            setCampaignData(prev => ({
-                ...prev,
-                image: file
-            }));
+            setImageFile(file);
 
-            // Create preview
+            // For preview
             const reader = new FileReader();
-            reader.onloadend = () => {
-                setPreviewImage(reader.result);
-            };
+            reader.onloadend = () => setPreviewImage(reader.result);
             reader.readAsDataURL(file);
         }
     };
@@ -78,7 +75,6 @@ const BrandCampaign = () => {
             return;
         }
 
-        // Basic validation
         if (!campaignData.title || !campaignData.amount || !campaignData.description) {
             setError("Please fill all required fields");
             setLoading(false);
@@ -86,13 +82,18 @@ const BrandCampaign = () => {
         }
 
         try {
-            // Create FormData for file upload
+            let imageUrl = "";
+            if (imageFile) {
+
+                imageUrl = await uploadCampaignImage(imageFile);
+            }
 
 
-            console.log("Campaign Data:", campaignData);
+            const finalCampaign = { ...campaignData, image: imageUrl };
 
+            // console.log("Final Campaign Data:", finalCampaign);
 
-            const response = await createCampaign(currentUser.userId, campaignData);
+            await createCampaign(currentUser.userId, finalCampaign);
             toast.success("Campaign created successfully!");
 
             // Reset form
@@ -100,9 +101,10 @@ const BrandCampaign = () => {
                 title: "",
                 amount: "",
                 description: "",
-                image: null
+                image: ""
             });
             setPreviewImage(null);
+            setImageFile(null);
 
         } catch (error) {
             console.error(error);

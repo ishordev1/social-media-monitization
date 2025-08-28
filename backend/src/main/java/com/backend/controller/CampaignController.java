@@ -78,11 +78,21 @@ public class CampaignController {
     }
     
     
-    @PostMapping("/upload")
+    @PostMapping("/image-upload")
     public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) throws Exception {
         String publicId = fileService.saveFile(file, BASE_PATH);
         String url = ((FileServiceImp) this.fileService).getFileUrl(publicId);
         return ResponseEntity.ok(url);
     }
+    
+
+	  @PutMapping("/update-upload")
+	    public ResponseEntity<String> updateFile(@RequestParam("file") MultipartFile file, @RequestParam("oldfile") String oldfile ) throws Exception {
+	      
+		  
+		  String publicId = fileService.updateFile(file, BASE_PATH, oldfile);
+	        String url = ((FileServiceImp) this.fileService).getFileUrl(publicId);
+	        return ResponseEntity.ok(url);
+	    }
     
 }

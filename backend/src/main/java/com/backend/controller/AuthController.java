@@ -78,5 +78,8 @@ public class AuthController {
 		        String url = ((FileServiceImp) this.fileService).getFileUrl(publicId);
 		        return ResponseEntity.ok(url);
 		    }
+		  
+		  
+
 	
 }
