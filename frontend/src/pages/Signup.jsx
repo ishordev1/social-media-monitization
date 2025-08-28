@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import "./Signup.css";
-import { saveUser, uploadProfileImage } from "../service/UserService";
+import { signUp, uploadProfileImage } from "../service/LoginService";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -55,27 +55,27 @@ const Signup = () => {
     e.preventDefault();
     try {
       setLoading(true);
-if(formData.email=="" || formData.password=='' || formData.role==''){
-   toast.error("field not  be blank...");
-  return 
-}
-if(imageFile==null){
-   toast.error("please upload image..");
-  return 
-}
-      
-      
-    const imageUrl = await uploadProfileImage(imageFile);
-    console.log("Image uploaded:", imageUrl);
+      if (formData.email == "" || formData.password == '' || formData.role == '') {
+        toast.error("field not  be blank...");
+        return
+      }
+      if (imageFile == null) {
+        toast.error("please upload image..");
+        return
+      }
 
-    // 2. Add image URL to formData
-    const finalData = { ...formData, imgName: imageUrl };
 
-    // 3. Save User
-    await saveUser(finalData);
+      const imageUrl = await uploadProfileImage(imageFile);
+      // console.log("Image uploaded:", imageUrl);
 
-    toast.success("Signup successful!");
-    navigate("/signin");
+      // 2. Add image URL to formData
+      const finalData = { ...formData, imgName: imageUrl };
+
+      // 3. Save User
+      await signUp(finalData);
+
+      toast.success("Signup successful!");
+      navigate("/signin");
     } catch (err) {
       console.error(err);
       toast.error("Signup failed");
@@ -89,12 +89,12 @@ if(imageFile==null){
       <div className="card signup-card shadow-lg animate-pop">
         <div className="card-body p-4 ">
           <div className="mb-3">
-             <h2 className=" text-center fw-bold mb-1">Create your account</h2>
+            <h2 className=" text-center fw-bold mb-1">Create your account</h2>
             <p className=" text-center text-muted mb-0">
               Join the Social Media Monetization platform
             </p>
-            </div>
-            
+          </div>
+
           {/* Image Upload Section - TOP */}
           <div className="text-center mb-3">
             <div
@@ -130,14 +130,14 @@ if(imageFile==null){
                       setImageFile(null);
                     }}
                   >
-                    
+
                     <i className="fa fa-times me-1"></i>Remove
                   </button>
                 </div>
               )}
             </div>
 
-           
+
           </div>
 
           <form onSubmit={handleSubmit} className="mt-4">

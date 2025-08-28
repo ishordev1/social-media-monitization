@@ -3,6 +3,8 @@ package com.backend.controller;
 import com.backend.dto.ApiResponse;
 import com.backend.dto.CampaignDto;
 import com.backend.service.CampaignService;
+import com.backend.service.FileService;
+import com.backend.service.impl.FileServiceImp;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -13,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -25,7 +28,8 @@ public class CampaignController {
    
     private final CampaignService campaignService;
     
-    
+    private final FileService fileService;
+	 private  String BASE_PATH = "users/campaign";
     
     // Create Campaign
     @PostMapping("/{userId}")
@@ -71,6 +75,14 @@ public class CampaignController {
     public ResponseEntity<List<CampaignDto>> getCampaignByUserId(@PathVariable String userId) {
         List<CampaignDto> campaignList = campaignService.getCampaignByUserId(userId);
         return new ResponseEntity<List<CampaignDto>>(campaignList,HttpStatus.OK);
+    }
+    
+    
+    @PostMapping("/upload")
+    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) throws Exception {
+        String publicId = fileService.saveFile(file, BASE_PATH);
+        String url = ((FileServiceImp) this.fileService).getFileUrl(publicId);
+        return ResponseEntity.ok(url);
     }
     
 }

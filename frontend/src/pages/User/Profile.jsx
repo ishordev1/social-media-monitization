@@ -4,7 +4,7 @@ import { getCurrentUserDetails } from '../../auth/Index';
 import { getUserScore } from '../../service/UserService';
 import { toast } from 'react-toastify';
 import './css/Profile.css';
-import {PRIVATE_URL} from '../../service/Helper'
+import { PRIVATE_URL } from '../../service/Helper'
 
 const Profile = () => {
     const [userData, setUserData] = useState({
@@ -26,9 +26,13 @@ const Profile = () => {
         recentPosts: [],
     });
 
+
+    const [saveUser, setSaveUser] = useState();
     useEffect(() => {
         const fetchUserData = async () => {
             const user = getCurrentUserDetails();
+            setSaveUser(user)
+
 
             if (user) {
                 setUserData(prev => ({
@@ -123,26 +127,48 @@ const Profile = () => {
 
     const scoreLevel = getScoreLevel();
 
+
     return (
         <div className="user-home-container">
             <div className="profile-header">
-                <div className="profile-main">
-                    <img
-                        src={`${PRIVATE_URL}/users/proxy-image?url=${encodeURIComponent(userData.profilePic)}`}
-                        alt="Profile Picture"
-                        className="rounded-circle mb-3"
-                        style={{ width: "150px", height: "150px", objectFit: "cover" }}
-                        onError={(e) => e.target.src = "https://randomuser.me/api/portraits/men/32.jpg"}
+                <div className="d-flex justify-content-between">
+                    <div className="profile-main">
+                        <img
+                            src={`${PRIVATE_URL}/users/proxy-image?url=${encodeURIComponent(userData.profilePic)}`}
+                            alt="Profile Picture"
+                            className="rounded-circle mb-3"
+                            style={{ width: "150px", height: "150px", objectFit: "cover" }}
+                            onError={(e) => e.target.src = "https://randomuser.me/api/portraits/men/32.jpg"}
 
 
-                    />
+                        />
 
-                    <div className="profile-info">
-                        <h1>{userData.name}</h1>
-                        <p className="username">@{userData.instaUsername}</p>
-                        <p className="bio">{userData.bio}</p>
-                        <div className="account-badge">{userData.accountType} Account</div>
+                        <div className="profile-info">
+                            <h1>{userData.name}</h1>
+                            <p className="username">@{userData.instaUsername}</p>
+                            <p className="bio">{userData.bio}</p>
+                            <div className="account-badge">{userData.accountType} Account</div>
+                        </div>
+
+
+
                     </div>
+
+                    {
+                        saveUser && saveUser.imgName &&
+                        <div className="text-left">
+                            <img
+                                src={saveUser.imgName}
+                                alt="Profile Picture"
+                                className="rounded-circle mb-3"
+                                style={{ width: "150px", height: "150px", objectFit: "cover" }}
+                                onError={(e) => e.target.src = "https://randomuser.me/api/portraits/men/32.jpg"}
+
+
+                            />
+                        </div>
+
+                    }
                 </div>
 
                 <div className="profile-stats">

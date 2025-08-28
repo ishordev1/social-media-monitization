@@ -5,8 +5,12 @@ import java.util.stream.Collectors;
 import java.util.Date;
 import java.util.Optional;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.backend.dto.BalanceInfoDto;
 import com.backend.dto.CampaignDto;
@@ -23,6 +27,7 @@ import com.backend.repository.InstaPostRepository;
 import com.backend.repository.UserRepository;
 import com.backend.service.BalanceInfoService;
 import com.backend.service.CampaignService;
+import com.backend.service.FileService;
 import com.backend.service.TransactionService;
 
 import lombok.RequiredArgsConstructor;
@@ -39,7 +44,7 @@ public class CampaignServiceImpl implements CampaignService {
 	private final ModelMapper modelMapper;
 	private final TransactionService transactionService;
 	private final InstaPostRepository instaPostRepository;
-
+	
 	@Override
 	public CampaignDto createCampaign(String userId, CampaignDto campaignDto) {
 		User user = userRepository.findById(userId)
@@ -153,5 +158,8 @@ public class CampaignServiceImpl implements CampaignService {
 				.map(campaign -> this.modelMapper.map(campaign, CampaignDto.class)).collect(Collectors.toList());
 		return campaignDto;
 	}
+	
+	
+	
 
 }

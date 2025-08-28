@@ -1,11 +1,11 @@
 .signup-page {
-  min-height: 100vh;
+
   display: grid;
   place-items: center;
   padding: 24px;
   background: radial-gradient(1200px 600px at 10% 10%, rgba(45, 76, 255, 0.18), transparent 40%),
-              radial-gradient(1000px 500px at 90% 30%, rgba(244, 63, 94, 0.16), transparent 45%),
-              linear-gradient(135deg, #0f172a 0%, #111827 100%);
+    radial-gradient(1000px 500px at 90% 30%, rgba(244, 63, 94, 0.16), transparent 45%),
+    linear-gradient(135deg, #0f172a 0%, #111827 100%);
   position: relative;
   overflow: hidden;
 }
@@ -23,8 +23,15 @@
 }
 
 @keyframes pop {
-  0% { transform: scale(0.9); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .dropzone {

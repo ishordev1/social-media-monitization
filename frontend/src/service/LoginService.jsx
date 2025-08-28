@@ -12,3 +12,16 @@ export const login = (loginDetail) => {
         .post('/auth/signin', loginDetail)
         .then((response) => response.data)
 }
+
+
+export const uploadProfileImage = (file) => {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    return myAxios
+        .post("/auth/profileupload", formData, {
+            headers: { "Content-Type": "multipart/form-data" },
+        })
+        .then((response) => response.data); // backend se URL return hoga
+};
+
