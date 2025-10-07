@@ -28,7 +28,7 @@ const Navbar = () => {
             <div className="container">
                 <nav className="navbar navbar-expand-lg navbar-dark">
                     <div className="container-fluid">
-                        <a className="navbar-brand" href="#">Logo</a>
+                        <h3 className="navbar-brand" href="#">SMM</h3>
                         <button
                             className="navbar-toggler"
                             type="button"

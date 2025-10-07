@@ -53,7 +53,7 @@ public class MyConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf(csrf -> csrf.disable())
-		.cors(cors-> {})
+		.cors(cors->{})
 				.authorizeHttpRequests(auth -> auth.requestMatchers("/api/users/proxy-image").permitAll()
 						.requestMatchers("/api/**").authenticated()
 						.anyRequest().permitAll())
