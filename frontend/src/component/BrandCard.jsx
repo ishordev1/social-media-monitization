@@ -32,10 +32,10 @@ console.log(campaigns);
             {/* Image Section */}
             <div className="position-relative" style={{ height: '200px', overflow: 'hidden' }}>
                 <img
-                    src={'https://1000logos.net/wp-content/uploads/2022/10/Lenskart-Logo.png'}
+                    src={brand.imgName || 'https://via.placeholder.com/150'}
                     className=" card-img-top  object-fit-cover"
                     alt={brand.name}
-                    style={{ objectFit: 'cover' }}
+                    style={{ objectFit: 'contain' }}
                 />
                 <div className="position-absolute top-0 start-0 w-100 h-100"
                     style={{

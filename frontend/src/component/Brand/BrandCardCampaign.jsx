@@ -1,29 +1,49 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { DeleteCampaigns } from "../../service/CampaignService";
+import { DeleteCampaigns, updatingCampaign, uploadCampaignImage } from "../../service/CampaignService";
 import { getCurrentUserDetails } from "../../auth/Index";
 import { toast } from "react-toastify";
 import JoditEditor from "jodit-react";
 
-
-export const BrandCardCampaign = ({ campaign, onDeleted }) => {
+export const BrandCardCampaign = ({ campaign, onDeleted, updateCampaign }) => {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const editor = useRef(null);
+
+  // Form states
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    imageUrl: "" // URL of existing or new image
+  });
+
+  const [imageFile, setImageFile] = useState(null); // New file to upload
+  const [previewImage, setPreviewImage] = useState(""); // Preview in modal
+
   useEffect(() => {
     setCurrentUser(getCurrentUserDetails());
+    // Initialize form with existing campaign data
+    if (campaign) {
+      setFormData({
+        title: campaign.title,
+        description: campaign.description,
+        imageUrl: campaign.image // existing image URL
+      });
+      setPreviewImage(campaign.image);
+    }
   }, [campaign]);
 
   const percentage = ((campaign.distributeAmount / campaign.amount) * 100).toFixed(1);
   const remaining = campaign.amount - campaign.distributeAmount;
 
+  // Handle delete
   const handleDelete = async () => {
     if (window.confirm("Are you sure you want to delete this campaign?")) {
       try {
         await DeleteCampaigns(currentUser.userId, campaign.campaignId);
         toast.success("Campaign deleted successfully!");
-        if (onDeleted) onDeleted(campaign.campaignId); // 👈 instantly remove from UI
+        if (onDeleted) onDeleted(campaign.campaignId);
       } catch (error) {
         console.error("Delete error:", error);
         toast.error("Failed to delete campaign.");
@@ -31,8 +51,54 @@ export const BrandCardCampaign = ({ campaign, onDeleted }) => {
     }
   };
 
+  // Handle input change
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
 
+  // Handle image change
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImageFile(file);
 
+      // Update preview immediately
+      const reader = new FileReader();
+      reader.onloadend = () => setPreviewImage(reader.result);
+      reader.readAsDataURL(file);
+    }
+  };
+
+  // Handle update campaign
+  const handleUpdate = async () => {
+    try {
+      let updatedImageUrl = formData.imageUrl;
+
+      // 1️⃣ Upload new image first if selected
+      if (imageFile) {
+        updatedImageUrl = await uploadCampaignImage(imageFile);
+      }
+
+      // 2️⃣ Prepare updated campaign data
+      const updatedCampaign = {
+        ...campaign,
+        title: formData.title,
+        description: formData.description,
+        image: updatedImageUrl
+      };
+
+      // 3️⃣ Call manual update method with campaignId
+      await updatingCampaign(campaign.campaignId, updatedCampaign);
+
+      toast.success("Campaign updated successfully!");
+      setShowModal(false);
+
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to update campaign.");
+    }
+  };
 
   return (
     <div className="container mt-4">
@@ -75,7 +141,6 @@ export const BrandCardCampaign = ({ campaign, onDeleted }) => {
           <div className="d-flex">
             <Link to={`/brand/home/campaign/view/${campaign.campaignId}`}
               className="btn btn-outline-secondary btn-sm me-2"
-             
             >
               <i className="fas fa-eye"></i> View
             </Link>
@@ -129,65 +194,69 @@ export const BrandCardCampaign = ({ campaign, onDeleted }) => {
 
       {/* Edit Modal */}
       {showModal && (
-        <div
-          className="modal fade show"
-          style={{ display: "block"}}
-          tabIndex="-1"
-          role="dialog"
-        >
-          <div className="modal-dialog" role="document" style={{ maxWidth: "70%" }}>
+        <div className="modal fade show" style={{ display: "block" }} tabIndex="-1">
+          <div className="modal-dialog" style={{ maxWidth: "70%" }}>
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title">Edit Campaign</h5>
-                <button
-                  type="button"
-                  className="btn-close"
-                  onClick={() => setShowModal(false)}
-                ></button>
+                <button className="btn-close" onClick={() => setShowModal(false)}></button>
               </div>
               <div className="modal-body">
-                {/* Example form */}
                 <form>
                   <div className="mb-3">
                     <label className="form-label">Title</label>
                     <input
                       type="text"
-                      defaultValue={campaign.title}
+                      name="title"
+                      value={formData.title}
+                      onChange={handleInputChange}
                       className="form-control"
                     />
                   </div>
+
                   <div className="mb-3">
                     <label className="form-label">Description</label>
-                    <div className="jodit-editor-container">
-                      <JoditEditor
-                        ref={editor}
-                        value={campaign.description}
-                      />
-                    </div>
-
+                    <JoditEditor
+                      ref={editor}
+                      value={formData.description}
+                      onBlur={(newContent) => setFormData(prev => ({ ...prev, description: newContent }))}
+                    />
                   </div>
 
-
                   <div className="mb-3">
-                    <label className="form-label">image</label>
+                    <label className="form-label">Image</label>
+                    {previewImage && (
+                      <div className="mb-2 text-center">
+                        <img
+                          src={previewImage}
+                          alt="Preview"
+                          style={{ maxHeight: "150px" }}
+                          className="img-fluid rounded mb-2"
+                        />
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-outline-danger mb-2"
+                          onClick={() => {
+                            setPreviewImage(null);
+                            setImageFile(null);
+                            setFormData(prev => ({ ...prev, imageUrl: "" }));
+                          }}
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    )}
                     <input
                       type="file"
                       className="form-control"
+                      onChange={handleImageChange}
                     />
                   </div>
                 </form>
               </div>
               <div className="modal-footer">
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  onClick={() => setShowModal(false)}
-                >
-                  Close
-                </button>
-                <button type="button" className="btn btn-primary">
-                  Save changes
-                </button>
+                <button className="btn btn-secondary" onClick={() => setShowModal(false)}>Close</button>
+                <button className="btn btn-primary" onClick={handleUpdate}>Update Campaign</button>
               </div>
             </div>
           </div>

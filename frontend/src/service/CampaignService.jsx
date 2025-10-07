@@ -15,7 +15,7 @@ export const participateInCampaign = (campaignId, userId, data) => {
 };
 
 export const createCampaign = (userId, campaignData) => {
-    console.log(campaignData);
+    // console.log(campaignData);
 
     return privateAxios
         .post(`/campaigns/${userId}`, campaignData)
@@ -32,8 +32,42 @@ export const getCampaignsById = (id) => {
         .get('/campaigns/' + id)
         .then((response) => response.data);
 };
-export const DeleteCampaigns = (userId,campaignId) => {
+export const DeleteCampaigns = (userId, campaignId) => {
     return privateAxios
         .delete('/campaigns/' + userId + '/' + campaignId)
+        .then((response) => response.data);
+};
+
+
+
+
+
+export const uploadCampaignImage = (file) => {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    return privateAxios
+        .post("/campaigns/image-upload", formData, {
+            headers: { "Content-Type": "multipart/form-data" },
+        })
+        .then((response) => response.data); // backend se URL return hoga
+};
+
+export const updateCampaignImage = (file) => {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    return privateAxios
+        .put("/campaigns/update-image", formData, {
+            headers: { "Content-Type": "multipart/form-data" },
+        })
+        .then((response) => response.data); // backend se URL return hoga
+};
+
+
+
+export const updatingCampaign = (campaignId, updateCampaignData) => {
+    return privateAxios
+        .put('/campaigns/' + campaignId, updateCampaignData)
         .then((response) => response.data);
 };

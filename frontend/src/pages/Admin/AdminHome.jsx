@@ -19,15 +19,10 @@ const AdminHome = () => {
                             <li className="nav-item">
                                 <NavLink to='/admin/home/brand' className="nav-link"  >Brand</NavLink>
                             </li>
-                            <li className="nav-item">
-                                <NavLink to='/admin/home/accountrequest' className="nav-link"  >Account request</NavLink>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink to='/admin/home/account' className="nav-link"  >Account</NavLink>
-                            </li>
-                            <li className="nav-item">
+
+                            {/* <li className="nav-item">
                                 <NavLink to='/admin/home/setting' className="nav-link"  >Setting</NavLink>
-                            </li>
+                            </li> */}
 
 
 

@@ -1,0 +1,74 @@
+.signup-page {
+
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: radial-gradient(1200px 600px at 10% 10%, rgba(45, 76, 255, 0.18), transparent 40%),
+    radial-gradient(1000px 500px at 90% 30%, rgba(244, 63, 94, 0.16), transparent 45%),
+    linear-gradient(135deg, #0f172a 0%, #111827 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.signup-card {
+  max-width: 800px;
+  width: 100%;
+  border-radius: 15px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.animate-pop {
+  animation: pop 0.3s ease-in-out;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.dropzone {
+  border: 2px dashed #6c63ff;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  background: #fafafa;
+  transition: 0.2s;
+}
+
+.dropzone:hover {
+  background: #f1f1ff;
+}
+
+.dz-placeholder {
+  color: #666;
+}
+
+.dz-preview img {
+  max-width: 120px;
+  border-radius: 10px;
+}
+
+.form-floating label i {
+  color: #6c63ff;
+}
+
+.toggle-pass {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #6c63ff;
+}
+
+.btn-cta {
+  border-radius: 30px;
+  font-weight: bold;
+}

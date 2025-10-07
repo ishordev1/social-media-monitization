@@ -1,4 +1,4 @@
-package com.backend.security;
+package com.backend.config;
 
 import lombok.Data;
 

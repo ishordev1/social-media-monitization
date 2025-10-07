@@ -1,4 +1,4 @@
-package com.backend.security;
+package com.backend.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -10,11 +10,11 @@ public class CorsConfigurer  implements WebMvcConfigurer{
 	private String url;
 	@Override
         public void addCorsMappings(CorsRegistry registry) {
-		System.out.println("Url:"+ url);
+	
             registry.addMapping("/**")   //to all endpoint allow
                     .allowedOrigins(url)
                     .allowedMethods("*")
-                    .allowCredentials(true);
+                    .allowCredentials(true);  //we send somethings so it allow -> like (Header)
         }
 	
 	
