@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getUserByRoleAndStatus, searchUserByRoleAndName } from "../../service/UserService";
 import UsersList from "../../component/Admin/UsersList";
-
+import Signup from "../Signup";
 
 const ShowBrands = () => {
  const [users, setUsers] = useState([]);
@@ -70,7 +70,7 @@ const ShowBrands = () => {
       <div className="d-flex justify-content-between align-items-center mb-2">
         <h3 className="fw-bold">All Customer</h3>
         <div className="d-flex">
-          <button className="btn btn-primary me-2 d-flex align-items-center">
+         <button className="btn btn-primary me-2 d-flex align-items-center" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" >
             <i className="fas fa-plus me-1"></i> Add
           </button>
           {/* Search Box */}
@@ -118,6 +118,16 @@ const ShowBrands = () => {
           </div>
         )
       )}
+{/* show canvascode */}
+       <div class="offcanvas offcanvas-start w-50" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas-header">
+          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <Signup />
+
+        </div>
+      </div>
     </div>
   );
 };

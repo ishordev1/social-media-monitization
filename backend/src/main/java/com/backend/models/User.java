@@ -18,6 +18,7 @@ import jakarta.persistence.FetchType;
 
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -52,6 +53,7 @@ public class User {
 	private Date joinDate;
     private Boolean active;
     private double instaScore;
+   
 	
 }
 

@@ -75,7 +75,7 @@ const Signup = () => {
       await signUp(finalData);
 
       toast.success("Signup successful!");
-      navigate("/signin");
+      // navigate("/signin");
     } catch (err) {
       console.error(err);
       toast.error("Signup failed");

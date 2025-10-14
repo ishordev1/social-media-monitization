@@ -5,6 +5,7 @@ import { getUserScore } from '../../service/UserService';
 import { toast } from 'react-toastify';
 import './css/Profile.css';
 import { PRIVATE_URL } from '../../service/Helper'
+import UpdateProfile from '../../component/Common/UpdateProfile';
 
 const Profile = () => {
     const [userData, setUserData] = useState({
@@ -30,7 +31,7 @@ const Profile = () => {
     const [saveUser, setSaveUser] = useState();
     useEffect(() => {
         const fetchUserData = async () => {
-            const user = getCurrentUserDetails();
+            const user =await getCurrentUserDetails();
             setSaveUser(user)
 
 
@@ -131,6 +132,9 @@ const Profile = () => {
     return (
         <div className="user-home-container">
             <div className="profile-header">
+               <div className="float-end">
+              {saveUser && <UpdateProfile userData={saveUser} />}
+               </div>
                 <div className="d-flex justify-content-between">
                     <div className="profile-main">
                         <img
@@ -157,7 +161,8 @@ const Profile = () => {
                     {
                         saveUser && saveUser.imgName &&
                         <div className="text-left">
-                            <img
+                       
+                             <img
                                 src={saveUser.imgName}
                                 alt="Profile Picture"
                                 className="rounded-circle mb-3"
@@ -166,6 +171,7 @@ const Profile = () => {
 
 
                             />
+                      
                         </div>
 
                     }

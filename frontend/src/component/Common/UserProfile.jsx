@@ -2,7 +2,13 @@ import React from 'react'
 
 const UserProfile = () => {
   return (
-    <div>UserProfile</div>
+    <div>
+<div className="container">
+
+
+</div>
+
+    </div>
   )
 }
 
