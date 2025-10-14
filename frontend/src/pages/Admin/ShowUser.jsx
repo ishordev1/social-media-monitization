@@ -3,10 +3,11 @@ import UsersList from "../../component/Admin/UsersList";
 import { getUserByRoleAndStatus } from "../../service/UserService";
 import { searchUserByRoleAndName } from "../../service/UserService"; // Import your search API
 import AdminUserDashboard from "../../component/Admin/AdminUserDashboard/AdminUserDashboard";
+import Signup from "../Signup";
 const ShowUser = () => {
   const [users, setUsers] = useState([]);
-  const [filterStatus, setFilterStatus] = useState("All"); // default filter
-  const [searchQuery, setSearchQuery] = useState(""); // search input state
+  const [filterStatus, setFilterStatus] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(false);
 
   // Fetch when filter changes (and search is empty)
@@ -65,14 +66,15 @@ const ShowUser = () => {
     }
   };
 
+
   return (
     <div className="container mt-4">
-<AdminUserDashboard/>
+      {/* <AdminUserDashboard/> */}
 
       <div className="d-flex justify-content-between align-items-center mb-2">
         <h3 className="fw-bold">All Customer</h3>
         <div className="d-flex">
-          <button className="btn btn-primary me-2 d-flex align-items-center">
+          <button className="btn btn-primary me-2 d-flex align-items-center" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" >
             <i className="fas fa-plus me-1"></i> Add
           </button>
           {/* Search Box */}
@@ -120,6 +122,16 @@ const ShowUser = () => {
           </div>
         )
       )}
+
+      <div class="offcanvas offcanvas-start w-50" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas-header">
+          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <Signup />
+
+        </div>
+      </div>
     </div>
   );
 };

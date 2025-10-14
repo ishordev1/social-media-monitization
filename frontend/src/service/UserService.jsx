@@ -45,6 +45,13 @@ export const getUserScore = (instaUserName) => {
         .then((response) => response.data);
 };
 
+export const deleteUser=async(userId)=>{
+    try {
+        return await privateAxios.delete('/users/'+userId);
+    }
+    catch (err) {
+        console.log(err);
+    }
 
-
+}
 

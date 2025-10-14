@@ -21,6 +21,8 @@ public class BalanceInfo {
 private String balanceInfoId;
 private Double totalBalance=0.0;
 private Double spendBalance=0.0;
+
+
 @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 @JoinColumn(name = "user_Id")
 private User user;

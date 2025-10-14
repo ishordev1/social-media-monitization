@@ -6,21 +6,23 @@ import { doLogin } from "../auth/Index";
 import { login } from "../service/LoginService";
 
 const Signin = () => {
+    const navigate = useNavigate();
+    const [loading,setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
-  // Handle input change
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const navigate = useNavigate();
+
 
   const handleSubmit = async (event) => {
     event.preventDefault(); // Prevent default form submission
     try {
+      setLoading(true);
       const jwtTokenData = await login(formData);
       await doLogin(jwtTokenData, () => {
         toast.success("Login successful");
@@ -39,6 +41,8 @@ const Signin = () => {
     } catch (err) {
     console.log("Login error:", err.response?.data?.message);
     toast.error(err.response?.data?.message || "Login failed. Please check your credentials.");
+  }finally{
+    setLoading(false);
   }
   };
 
@@ -80,7 +84,18 @@ const Signin = () => {
                 <input type="checkbox" className="form-check-input" id="rememberMe" />
                 <label className="form-check-label" htmlFor="rememberMe">Remember me</label>
               </div>
-              <button type="submit" className="btn btn-primary w-100">Submit</button>
+              <button type="submit" className="btn btn-primary w-100" disabled={loading}>
+                {
+                  loading ?(
+                     <span className="spinner-border spinner-border-sm me-2" role="status" />
+                  ):(
+                      <i className="fa fa-check me-2"></i>
+                  )
+                }
+                {
+                  loading ? "Logging in..." : "Login Here"
+                }
+             </button>
             </form>
           </div>
         </div>

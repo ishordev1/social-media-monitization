@@ -68,16 +68,19 @@ public class UserServiceImpl implements UserService {
 
 	// Update User by Email
 	@Override
-	public UserDto updateUser(String email, UserDto userDto) {
-		User existingUser = this.userRepository.findByEmail(email)
-				.orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + email));
+	public UserDto updateUser(String userId, UserDto userDto) {
+		User existingUser = this.userRepository.findById(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("User not found with this id: " + userId));
 
-		// Ensure the same user ID is used
-		userDto.setUserId(existingUser.getUserId());
+		existingUser.setName(userDto.getName());
+		existingUser.setEmail(userDto.getEmail());
+		existingUser.setInstaUsername(userDto.getInstaUsername());
+		existingUser.setInstaScore(0);
+		existingUser.setRole(userDto.getRole());
+		existingUser.setImgName(userDto.getImgName());
 
-		// Map the updated fields from DTO to the existing entity
-		User updatedUser = this.modelMapper.map(userDto, User.class);
-		User savedUser = this.userRepository.save(updatedUser);
+		
+		User savedUser = this.userRepository.save(existingUser);
 
 		return this.modelMapper.map(savedUser, UserDto.class);
 	}
