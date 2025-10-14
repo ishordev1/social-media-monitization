@@ -4,9 +4,9 @@ import { toast } from "react-toastify";
 
 
 // export const BASE_URL = 'https://social-media-monitization.onrender.com';
-export const BASE_URL="http://localhost:8080"
+// export const BASE_URL="http://localhost:8080"
 
-// const BASE_URL = process.env.FRONTENT_URL;
+const BASE_URL = process.env.FRONTEND_URL;
 export const PRIVATE_URL = `${BASE_URL}/api`;
 
 export const myAxios = axios.create({
