@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
 			throw new ResourceNotFoundException("user is already exist..");
 		}
 		if (userDto.getRole() == Role.CUSTOMER) {
-			userDto.setStatus(UserStatus.PENDING);
+			userDto.setStatus(UserStatus.VERIFY);
 		} else {
 			userDto.setStatus(UserStatus.VERIFY);
 		}
