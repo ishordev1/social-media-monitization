@@ -1,5 +1,5 @@
 # ------------ BUILD STAGE ------------
-# FROM maven:3.9.6-eclipse-temurin-17 AS build
+
 FROM maven:3.9.6-eclipse-temurin-17 AS build
 
 WORKDIR /app
@@ -16,7 +16,7 @@ RUN mvn clean package -DskipTests
 
 
 # ------------ RUN STAGE ------------
-FROM openjdk:17-jdk-slim
+FROM eclipse-temurin:17-jdk
 
 WORKDIR /app
 
